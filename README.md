@@ -24,7 +24,7 @@
 
 **Transforming pastoral resilience through satellite intelligence, machine learning, and logistics optimization**
 
-[Live Demo](#quick-start) • [Documentation](#features) • [Screenshots](#visual-gallery) • [Team](#team-contributors) • [Contributing](#contributing)
+[Live Demo](#quick-start) • [Documentation](#features) • [Screenshots](#features) • [Team](#team-contributors) • [Contributing](#contributing)
 
 </div>
 
@@ -38,7 +38,6 @@
 |---------|-------------|
 | [About](#about-pastureai) | What is PastureAI and why it matters |
 | [Features](#features) | Complete feature breakdown with screenshots |
-| [Visual Gallery](#visual-gallery) | Every page/feature screenshotted |
 | [Tech Stack](#tech-stack) | Technologies powering the platform |
 | [Architecture](#system-architecture) | How components work together |
 | [Team](#team-contributors) | Meet the contributors |
@@ -77,37 +76,51 @@ PastureAI provides a **unified command center** with:
 
 ## Features
 
-### Landing Page
+### 1. Landing Page - Hero Section
 
-![Landing Page Hero](screenshots/landing-hero.png)
+![Landing Page Hero](screenshots/01-landing-hero.png)
 
-![Landing Features](screenshots/landing-features.png)
-
-**Key Elements:**
-- Full-screen cinematic hero with parallax effects
-- Dynamic image slideshow showcasing Ethiopian landscapes
-- Gradient text logo with animated shimmer effect
-- CTA buttons with glow hover states
-- Feature cards with glass morphism backdrop blur
+Full-screen cinematic hero with parallax effects, gradient text logo, and compelling call-to-action buttons.
 
 ---
 
-### Executive Dashboard
+### 2. Landing Page - Feature Cards
 
-![Dashboard Overview](screenshots/dashboard-overview.png)
+![Landing Features](screenshots/02-landing-features.png)
 
-**Key Elements:**
-- **6 Animated KPI Cards** -- Total Zones, At-Risk Districts, Avg NDVI, Feed Deficit, Active Dispatches, Weather Alerts
-- **Interactive Map Panel** -- Real-time district visualization with color-coded health indicators
-- **Timeline Slider** -- Visual 60-day prediction slider with pulse animations
-- **District Detail Panel** -- Click any zone for detailed metrics and AI brief
-- **Live Status Bar** -- Real-time system status overlay
+Interactive feature cards showcasing core capabilities with hover animations and glass morphism design.
 
 ---
 
-### Interactive Map Component
+### 3. Executive Dashboard
 
-![Map View](screenshots/map-interactive.png)
+![Dashboard Overview](screenshots/03-dashboard-overview.png)
+
+Complete overview dashboard with KPI header, statistics grid, interactive map, timeline slider, and district detail panel.
+
+---
+
+### 4. Stats Cards Component
+
+![Stats Cards](screenshots/04-stats-cards.png)
+
+6 animated KPI cards displaying: Total Zones, At-Risk Districts, Avg NDVI, Feed Deficit, Active Dispatches, Weather Alerts.
+
+---
+
+### 5. Timeline Slider Component
+
+![Timeline Slider](screenshots/05-timeline-slider.png)
+
+Visual 60-day prediction slider with pulse animations for temporal navigation through forage forecasts.
+
+---
+
+### 6. Interactive Map Component
+
+![Interactive Map](screenshots/06-interactive-map.png)
+
+Premium Leaflet map with animated gradient border, glass morphism controls, district overlays, and live legend panel.
 
 **Map Features:**
 - **6 Basemap Layers** -- Voyager, Satellite, Sentinel-2, Terrain, Light, Dark
@@ -119,13 +132,22 @@ PastureAI provides a **unified command center** with:
 - **Depot Markers** -- Bounce animation on supply points
 - **Route Lines** -- Hover highlight effects on optimized paths
 - **Live Legend Panel** -- Real-time district count by category
-- **Status Overlay** -- Live system status bar (top-left)
 
 ---
 
-### Climate Analytics Page
+### 7. District Detail Panel
 
-![Climate Analytics](screenshots/climate-analytics.png)
+![District Panel](screenshots/07-district-panel.png)
+
+Click any zone on the map to reveal detailed metrics including population data, AI brief summary, and feed deficit indicators.
+
+---
+
+### 8. Climate Analytics Page
+
+![Climate Analytics](screenshots/08-climate-analytics.png)
+
+Comprehensive climate analytics dashboard with temperature trends, precipitation data, and drought index visualizations.
 
 **Climate Features:**
 - **Temperature Analysis** -- Current, forecast, and historical trends
@@ -136,9 +158,11 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-### Satellite Monitoring Page
+### 9. Satellite Monitoring Page
 
-![Satellite Monitoring](screenshots/satellite-monitoring.png)
+![Satellite Monitoring](screenshots/09-satellite-monitoring.png)
+
+Sentinel-2 NDVI monitoring via Google Earth Engine with vegetation health heat maps and temporal analysis.
 
 **Satellite Features:**
 - **Sentinel-2 Integration** -- 10m resolution multispectral imagery
@@ -150,9 +174,11 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-### Logistics Optimization Page
+### 10. Logistics & Route Optimization
 
-![Logistics Routing](screenshots/logistics-routing.png)
+![Logistics Routing](screenshots/10-logistics-routing.png)
+
+Intelligent route optimization using Clarke-Wright savings algorithm with vehicle capacity constraints.
 
 **Logistics Features:**
 - **Vehicle Routing** -- Capacitated VRP optimization
@@ -164,9 +190,11 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-### AI Brief Generator
+### 11. AI Brief Generator
 
-![AI Brief](screenshots/ai-brief.png)
+![AI Brief](screenshots/11-ai-brief.png)
+
+Auto-generated executive briefs powered by Google Gemini AI with actionable recommendations for decision-makers.
 
 **AI Features:**
 - **Gemini Integration** -- Google's most capable AI model
@@ -178,9 +206,11 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-### Livestock Management
+### 12. Livestock Management
 
-![Livestock Management](screenshots/livestock-management.png)
+![Livestock Management](screenshots/12-livestock-management.png)
+
+Comprehensive livestock tracking with population estimates, feed requirements, and vulnerability assessments.
 
 **Livestock Features:**
 - **Population Tracking** -- Cattle, camels, goats, sheep counts
@@ -191,17 +221,19 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-## Visual Gallery
+### 13. Navigation Bar Component
 
-### UI Components
+![Navbar Component](screenshots/13-navbar-component.png)
 
-![Navbar Component](screenshots/navbar-component.png)
+Glass morphism navigation bar with responsive hamburger menu, theme toggle, and status indicator pills.
 
-*Glass morphism navigation bar with responsive hamburger menu, theme toggle, and status indicator pills.*
+---
 
-![Stats Cards](screenshots/stats-cards.png)
+### 14. Map Controls & Basemap Switcher
 
-*Animated metric cards with trend indicators, color-coded values, and hover glow effects.*
+![Map Controls](screenshots/14-map-controls.png)
+
+Advanced map controls including basemap layer switcher (6 layers), zoom controls, and layer visibility toggles.
 
 ---
 
@@ -387,7 +419,7 @@ docker run -p 3000:3000 --env-file .env pastureai
   <img src="https://img.shields.io/badge/Frontend_Files-15+-blue?style=for-the-badge" alt="Frontend Files">
   <img src="https://img.shields.io/badge/Backend_Services-8+-green?style=for-the-badge" alt="Backend Services">
   <img src="https://img.shields.io/badge/CSS_Lines-940+-purple?style=for-the-badge" alt="CSS Lines">
-  <img src="https://img.shields.io/badge/Screenshots-11+-orange?style=for-the-badge" alt="Screenshots">
+  <img src="https://img.shields.io/badge/Screenshots-14+-orange?style=for-the-badge" alt="Screenshots">
 </p>
 
 ### Code Metrics
@@ -400,7 +432,7 @@ docker run -p 3000:3000 --env-file .env pastureai
 | CSS Design System | ~940 lines |
 | API Endpoints | 12+ |
 | External Integrations | 4 |
-| Screenshots | 11 |
+| Feature Screenshots | 14 |
 
 ---
 
