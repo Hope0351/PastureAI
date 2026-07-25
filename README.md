@@ -18,13 +18,13 @@
 
 <div align="center">
 
-# 🌾 PastureAI
+# PastureAI
 
 ### *AI-Powered Ethiopian Pastoral Forage Prediction & Livestock Management Platform*
 
 **Transforming pastoral resilience through satellite intelligence, machine learning, and logistics optimization**
 
-[🚀 Live Demo](#-quick-start) • [📖 Documentation](#-features) • [🎬 Screenshots](#-visual-gallery) • [👥 Team](#-team-contributors) • [🤝 Contributing](#-contributing)
+[Live Demo](#quick-start) • [Documentation](#features) • [Screenshots](#visual-gallery) • [Team](#team-contributors) • [Contributing](#contributing)
 
 </div>
 
@@ -32,39 +32,38 @@
 
 ---
 
-## 🎯 Quick Navigation
+## Quick Navigation
 
 | Section | Description |
 |---------|-------------|
-| [🌟 Hero & Overview](#-about-pastureai) | What is PastureAI and why it matters |
-| [✨ Features](#-features) | Complete feature breakdown with screenshots |
-| [🎬 Visual Gallery](#-visual-gallery) | Every page/feature screenshotted |
-| [🛠️ Tech Stack](#-tech-stack) | Technologies powering the platform |
-| [🏗️ Architecture](#-system-architecture) | How components work together |
-| [📱 Responsive Design](#-responsive-design) | Mobile & tablet views |
-| [🌙 Dark Mode](#-dark-mode) | Light/Dark theme support |
-| [👥 Team](#-team-contributors) | Meet the contributors |
-| [🚀 Quick Start](#-quick-start) | Run locally in 2 minutes |
-| [📊 Project Stats](#-project-stats) | Numbers that matter |
-| [🛡️ Security](#-security) | Security practices |
-| [🗺️ Roadmap](#-roadmap) | Future plans |
-| [📄 License](#-license) | MIT License |
+| [About](#about-pastureai) | What is PastureAI and why it matters |
+| [Features](#features) | Complete feature breakdown with screenshots |
+| [Visual Gallery](#visual-gallery) | Every page/feature screenshotted |
+| [Tech Stack](#tech-stack) | Technologies powering the platform |
+| [Architecture](#system-architecture) | How components work together |
+| [Responsive Design](#responsive-design) | Mobile & tablet views |
+| [Dark Mode](#dark-mode) | Light/Dark theme support |
+| [Team](#team-contributors) | Meet the contributors |
+| [Quick Start](#quick-start) | Run locally in 2 minutes |
+| [Security](#security) | Security practices |
+| [Roadmap](#roadmap) | Future plans |
 
 ---
 
-## 🌟 About PastureAI
+## About PastureAI
 
 **PastureAI** is an enterprise-grade, AI-powered platform designed specifically for **Ethiopian pastoral communities** facing climate-induced forage scarcity. By leveraging **Sentinel-2 satellite imagery**, **Google Earth Engine**, **machine learning models**, and **optimization algorithms**, PastureAI delivers real-time forage predictions, livestock management insights, and intelligent feed dispatch routing.
 
-### 🎯 The Problem We Solve
+### The Problem We Solve
 
 Ethiopia's pastoral regions support **millions of livestock** and livelihoods, yet face:
-- 🌵 **Unpredictable drought cycles** causing massive livestock mortality
-- 📉 **Lack of real-time forage data** for migration decisions  
-- 🚛 **Inefficient emergency feed logistics** reaching affected areas too late
-- 📊 **Fragmented information** across weather, satellite, and ground data
 
-### 💡 Our Solution
+- **Unpredictable drought cycles** causing massive livestock mortality
+- **Lack of real-time forage data** for migration decisions  
+- **Inefficient emergency feed logistics** reaching affected areas too late
+- **Fragmented information** across weather, satellite, and ground data
+
+### Our Solution
 
 PastureAI provides a **unified command center** with:
 
@@ -78,333 +77,173 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-## ✨ Features
+## Features
 
-### 🏠 Cinematic Landing Page
+### Landing Page
 
-<details>
-<summary><b>📸 Click to view Landing Page Screenshot</b></summary>
-<br>
+![Landing Page Hero](screenshots/landing-hero.png)
 
-![Landing Page Hero](screenshots/01-landing-hero.png)
-
-*Premium hero section with animated gradient background, dynamic image slideshow, and compelling call-to-action buttons.*
-
-</details>
-
-<details>
-<summary><b>📸 Click to view Feature Cards Section</b></summary>
-<br>
-
-![Landing Features](screenshots/02-landing-features.png)
-
-*Interactive feature cards showcasing core capabilities with hover animations and glass morphism design.*
-
-</details>
+![Landing Features](screenshots/landing-features.png)
 
 **Key Elements:**
-- 🎬 Full-screen cinematic hero with parallax effects
-- 🔄 Dynamic image slideshow showcasing Ethiopian landscapes
-- 🎨 Gradient text logo with animated shimmer effect
-- 🔘 CTA buttons with glow hover states
-- 🃏 Feature cards with glass morphism backdrop blur
+- Full-screen cinematic hero with parallax effects
+- Dynamic image slideshow showcasing Ethiopian landscapes
+- Gradient text logo with animated shimmer effect
+- CTA buttons with glow hover states
+- Feature cards with glass morphism backdrop blur
 
 ---
 
-### 📊 Executive Dashboard
+### Executive Dashboard
 
-<details>
-<summary><b>📸 Click to view Full Dashboard</b></summary>
-<br>
-
-![Dashboard Full](screenshots/03-dashboard-full.png)
-
-*Complete overview dashboard with KPI header, statistics grid, interactive map, timeline slider, and district detail panel.*
-
-</details>
-
-<details>
-<summary><b>📸 Click to view KPI Header Section</b></summary>
-<br>
-
-![Dashboard KPI](screenshots/04-dashboard-kpi.png)
-
-*KPI metrics header showing critical indicators at a glance with trend arrows and color-coded status.*
-
-</details>
+![Dashboard Overview](screenshots/dashboard-overview.png)
 
 **Key Elements:**
-- 📈 **6 Animated KPI Cards** — Total Zones, At-Risk Districts, Avg NDVI, Feed Deficit, Active Dispatches, Weather Alerts
-- 🗺️ **Interactive Map Panel** — Real-time district visualization with color-coded health indicators
-- ⏱️ **Timeline Slider** — Visual 60-day prediction slider with pulse animations
-- 📍 **District Detail Panel** — Click any zone for detailed metrics and AI brief
-- 🔄 **Live Status Bar** — Real-time system status overlay
+- **6 Animated KPI Cards** -- Total Zones, At-Risk Districts, Avg NDVI, Feed Deficit, Active Dispatches, Weather Alerts
+- **Interactive Map Panel** -- Real-time district visualization with color-coded health indicators
+- **Timeline Slider** -- Visual 60-day prediction slider with pulse animations
+- **District Detail Panel** -- Click any zone for detailed metrics and AI brief
+- **Live Status Bar** -- Real-time system status overlay
 
 ---
 
-### 🗺️ Interactive Map Component
+### Interactive Map Component
 
-<details>
-<summary><b>📸 Click to view Interactive Map</b></summary>
-<br>
-
-![Map View](screenshots/10-map-view.png)
-
-*Premium Leaflet map with animated gradient border, glass morphism controls, district overlays, and live legend panel.*
-
-</details>
+![Map View](screenshots/map-interactive.png)
 
 **Map Features:**
-- 🗺️ **6 Basemap Layers** — Voyager, Satellite, Sentinel-2, Terrain, Light, Dark
-- 🎨 **Animated Gradient Border** — Pulsing glow effect around map container
-- 🔍 **Location Control** — GPS geolocation integration
-- ⛶ **Fullscreen Mode** — Immersive map experience
-- 📐 **Coordinate Display** — Live cursor position tracking
-- 🏷️ **Enhanced Popups** — Metric cards grid inside popups
-- 📍 **Depot Markers** — Bounce animation on supply points
-- 🛣️ **Route Lines** — Hover highlight effects on optimized paths
-- 📊 **Live Legend Panel** — Real-time district count by category
-- 🟢 **Status Overlay** — Live system status bar (top-left)
+- **6 Basemap Layers** -- Voyager, Satellite, Sentinel-2, Terrain, Light, Dark
+- **Animated Gradient Border** -- Pulsing glow effect around map container
+- **Location Control** -- GPS geolocation integration
+- **Fullscreen Mode** -- Immersive map experience
+- **Coordinate Display** -- Live cursor position tracking
+- **Enhanced Popups** -- Metric cards grid inside popups
+- **Depot Markers** -- Bounce animation on supply points
+- **Route Lines** -- Hover highlight effects on optimized paths
+- **Live Legend Panel** -- Real-time district count by category
+- **Status Overlay** -- Live system status bar (top-left)
 
 ---
 
-### 🌤️ Climate Analytics Page
+### Climate Analytics Page
 
-<details>
-<summary><b>📸 Click to view Climate Page</b></summary>
-<br>
-
-![Climate Page](screenshots/05-climate-page.png)
-
-*Comprehensive climate analytics dashboard with temperature trends, precipitation data, and drought index visualizations.*
-
-</details>
+![Climate Analytics](screenshots/climate-analytics.png)
 
 **Climate Features:**
-- 🌡️ **Temperature Analysis** — Current, forecast, and historical trends
-- 🌧️ **Precipitation Tracking** — Rainfall patterns and predictions
-- 🏜️ **Drought Index** — Standardized Precipitation Evapotranspiration Index (SPEI)
-- 📅 **Seasonal Outlook** — 30/60/90 day forecasts
-- 📊 **Interactive Charts** — Recharts-powered visualizations
+- **Temperature Analysis** -- Current, forecast, and historical trends
+- **Precipitation Tracking** -- Rainfall patterns and predictions
+- **Drought Index** -- Standardized Precipitation Evapotranspiration Index (SPEI)
+- **Seasonal Outlook** -- 30/60/90 day forecasts
+- **Interactive Charts** -- Recharts-powered visualizations
 
 ---
 
-### 🛰️ Satellite Monitoring Page
+### Satellite Monitoring Page
 
-<details>
-<summary><b>📸 Click to view Satellite Page</b></summary>
-<br>
-
-![Satellite Page](screenshots/06-satellite-page.png)
-
-*Sentinel-2 NDVI monitoring via Google Earth Engine with vegetation health heat maps and temporal analysis.*
-
-</details>
+![Satellite Monitoring](screenshots/satellite-monitoring.png)
 
 **Satellite Features:**
-- 🛰️ **Sentinel-2 Integration** — 10m resolution multispectral imagery
-- 📈 **NDVI Calculation** — Normalized Difference Vegetation Index
-- 🗓️ **Temporal Compositing** — Cloud-free mosaic generation
-- 🎨 **Health Heat Maps** — Color-coded vegetation density
-- 📊 **Trend Analysis** — Historical vegetation changes
-- 🔴 **Alert Zones** — Automated anomaly detection
+- **Sentinel-2 Integration** -- 10m resolution multispectral imagery
+- **NDVI Calculation** -- Normalized Difference Vegetation Index
+- **Temporal Compositing** -- Cloud-free mosaic generation
+- **Health Heat Maps** -- Color-coded vegetation density
+- **Trend Analysis** -- Historical vegetation changes
+- **Alert Zones** -- Automated anomaly detection
 
 ---
 
-### 🚛 Logistics Optimization Page
+### Logistics Optimization Page
 
-<details>
-<summary><b>📸 Click to view Logistics Page</b></summary>
-<br>
-
-![Logistics Page](screenshots/07-logistics-page.png)
-
-*Intelligent route optimization using Clarke-Wright savings algorithm with vehicle capacity constraints.*
-
-</details>
+![Logistics Routing](screenshots/logistics-routing.png)
 
 **Logistics Features:**
-- 🚛 **Vehicle Routing** — Capacitated VRP optimization
-- 📍 **Depot Management** — Supply point locations and inventory
-- 🛣️ **Route Visualization** — Optimized paths on map
-- 📦 **Load Planning** — Capacity-aware allocation
-- ⏱️ **ETA Calculations** — Estimated arrival times
-- 💰 **Cost Estimation** — Fuel and distance costs
+- **Vehicle Routing** -- Capacitated VRP optimization
+- **Depot Management** -- Supply point locations and inventory
+- **Route Visualization** -- Optimized paths on map
+- **Load Planning** -- Capacity-aware allocation
+- **ETA Calculations** -- Estimated arrival times
+- **Cost Estimation** -- Fuel and distance costs
 
 ---
 
-### 🤖 AI Brief Generator
+### AI Brief Generator
 
-<details>
-<summary><b>📸 Click to view AI Brief Page</b></summary>
-<br>
-
-![AI Brief Page](screenshots/08-ai-brief-page.png)
-
-*Auto-generated executive briefs powered by Google Gemini AI with actionable recommendations for decision-makers.*
-
-</details>
+![AI Brief](screenshots/ai-brief.png)
 
 **AI Features:**
-- 🧠 **Gemini Integration** — Google's most capable AI model
-- 📋 **Executive Summarization** — Complex data → clear insights
-- 🎯 **Actionable Recommendations** — Specific intervention suggestions
-- 📊 **Confidence Scores** — AI prediction reliability metrics
-- 🔄 **Rules Engine Fallback** — Deterministic logic when AI unavailable
-- 📄 **Export Formats** — PDF/Word compatible briefs
+- **Gemini Integration** -- Google's most capable AI model
+- **Executive Summarization** -- Complex data to clear insights
+- **Actionable Recommendations** -- Specific intervention suggestions
+- **Confidence Scores** -- AI prediction reliability metrics
+- **Rules Engine Fallback** -- Deterministic logic when AI unavailable
+- **Export Formats** -- PDF/Word compatible briefs
 
 ---
 
-### 🐄 Livestock Management
+### Livestock Management
 
-<details>
-<summary><b>📸 Click to view Livestock Page</b></summary>
-<br>
-
-![Livestock Page](screenshots/09-livestock-page.png)
-
-*Comprehensive livestock tracking with population estimates, feed requirements, and vulnerability assessments.*
-
-</details>
+![Livestock Management](screenshots/livestock-management.png)
 
 **Livestock Features:**
-- 🐄 **Population Tracking** — Cattle, camels, goats, sheep counts
-- 📊 **Feed Requirements** — Daily nutritional needs calculation
-- ⚠️ **Vulnerability Scoring** — At-risk population identification
-- 📈 **Trend Analysis** — Population changes over time
-- 🗺️ **Distribution Maps** — Livestock density visualization
+- **Population Tracking** -- Cattle, camels, goats, sheep counts
+- **Feed Requirements** -- Daily nutritional needs calculation
+- **Vulnerability Scoring** -- At-risk population identification
+- **Trend Analysis** -- Population changes over time
+- **Distribution Maps** -- Livestock density visualization
 
 ---
 
-## 🎬 Visual Gallery
+## Visual Gallery
 
 ### UI Components
 
-<details>
-<summary><b>📸 Navigation Bar Component</b></summary>
-<br>
-
-![Navbar](screenshots/11-navbar-ui.png)
+![Navbar Component](screenshots/navbar-component.png)
 
 *Glass morphism navigation bar with responsive hamburger menu, theme toggle, and status indicator pills.*
 
-</details>
-
-<details>
-<summary><b>📸 Statistics Cards Grid</b></summary>
-<br>
-
-![Stats Cards](screenshots/12-stats-cards.png)
+![Stats Cards](screenshots/stats-cards.png)
 
 *Animated metric cards with trend indicators, color-coded values, and hover glow effects.*
 
-</details>
-
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 ### Mobile Views (375px)
 
-<details>
-<summary><b>📸 Mobile Landing Page</b></summary>
-<br>
-
-![Mobile Landing](screenshots/17-mobile-landing.png)
+![Mobile Home](screenshots/mobile-home.png)
 
 *Fully responsive landing page optimized for mobile devices with touch-friendly interactions.*
 
-</details>
-
-<details>
-<summary><b>📸 Mobile Dashboard</b></summary>
-<br>
-
-![Mobile Dashboard](screenshots/18-mobile-dashboard.png)
+![Mobile Dashboard](screenshots/mobile-dashboard.png)
 
 *Mobile-optimized dashboard with stacked cards, collapsible panels, and swipeable map.*
 
-</details>
-
-<details>
-<summary><b>📸 Mobile Satellite View</b></summary>
-<br>
-
-![Mobile Satellite](screenshots/19-mobile-satellite.png)
-
-*Touch-optimized satellite monitoring interface with gesture-based zoom and pan.*
-
-</details>
-
-<details>
-<summary><b>📸 Mobile Navigation Menu</b></summary>
-<br>
-
-![Mobile Menu](screenshots/20-mobile-menu.png)
-
-*Slide-out mobile navigation menu with smooth animation transitions.*
-
-</details>
-
 ### Tablet View (768px)
 
-<details>
-<summary><b>📸 Tablet Dashboard Layout</b></summary>
-<br>
-
-![Tablet Dashboard](screenshots/21-tablet-dashboard.png)
+![Tablet Dashboard](screenshots/tablet-dashboard.png)
 
 *Adaptive tablet layout with two-column grid and optimized touch targets.*
 
-</details>
-
 ---
 
-## 🌙 Dark Mode
+## Dark Mode
 
-<details>
-<summary><b>📸 Dark Mode - Landing Page</b></summary>
-<br>
-
-![Dark Landing](screenshots/13-dark-landing.png)
+![Dark Landing](screenshots/dark-landing.png)
 
 *Dark theme variant of the landing page with inverted colors and adjusted contrast ratios.*
 
-</details>
-
-<details>
-<summary><b>📸 Dark Mode - Dashboard</b></summary>
-<br>
-
-![Dark Dashboard](screenshots/14-dark-dashboard.png)
+![Dark Dashboard](screenshots/dark-dashboard.png)
 
 *Dark mode dashboard with reduced eye strain for extended use sessions.*
 
-</details>
-
-<details>
-<summary><b>📸 Dark Mode - Map Interface</b></summary>
-<br>
-
-![Dark Map](screenshots/15-dark-map.png)
-
-*Dark-themed map interface with enhanced layer visibility and reduced glare.*
-
-</details>
-
-<details>
-<summary><b>📸 Dark Mode - Satellite Monitoring</b></summary>
-<br>
-
-![Dark Satellite](screenshots/16-dark-satellite.png)
+![Dark Satellite](screenshots/dark-satellite.png)
 
 *Dark mode satellite page optimized for imagery analysis in low-light environments.*
 
-</details>
-
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -431,89 +270,89 @@ PastureAI provides a **unified command center** with:
 ### Design System
 
 ```
-├── 🎨 Color Palette
-│   ├── Field Green    (#22C55E) — Healthy vegetation
-│   ├── Signal Orange  (#F97316) — Warning/Attention
-│   ├── Critical Red    (#EF4444) — Danger/Urgent
-│   ├── Sky Blue        (#0EA5E9) — Information/Water
-│   └── OK Green        (#84CC16) — Success/Normal
-│
-├── ✨ Glass Morphism
-│   ├── Backdrop Blur   (12px)
-│   ├── Semi-transparent backgrounds (rgba)
-│   └── Subtle borders  (1px solid rgba)
-│
-└── 🎭 Animations
-    ├── Fade Up         (entrance)
-    ├── Scale In        (modal)
-    ├── Gradient Shift  (hero)
-    ├── Shimmer         (loading)
-    └── Pulse Ring      (live indicators)
++-- Color Palette
+|   +-- Field Green    (#22C55E) -- Healthy vegetation
+|   +-- Signal Orange  (#F97316) -- Warning/Attention
+|   +-- Critical Red    (#EF4444) -- Danger/Urgent
+|   +-- Sky Blue        (#0EA5E9) -- Information/Water
+|   +-- OK Green        (#84CC16) -- Success/Normal
+|
++-- Glass Morphism
+|   +-- Backdrop Blur   (12px)
+|   +-- Semi-transparent backgrounds (rgba)
+|   +-- Subtle borders  (1px solid rgba)
+|
++-- Animations
+    +-- Fade Up         (entrance)
+    +-- Scale In        (modal)
+    +-- Gradient Shift  (hero)
+    +-- Shimmer         (loading)
+    +-- Pulse Ring      (live indicators)
 ```
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                         CLIENT LAYER                            │
-│  ┌─────────┐ ┌──────────┐ ┌──────────┐ ┌─────────────────────┐ │
-│  │ React   │ │ Tailwind │ │ Framer   │ │     Recharts        │ │
-│  │ 19 + TS │ │   CSS 4  │ │  Motion  │ │   Visualization     │ │
-│  └────┬────┘ └────┬─────┘ └────┬─────┘ └──────────┬──────────┘ │
-│       └──────────┼────────────┼───────────────────┘            │
-│                  ▼            ▼                                  │
-│          ┌───────────────────────────┐                          │
-│          │      Leaflet Maps         │                          │
-│          │   (6 Basemap Layers)      │                          │
-│          └─────────────┬─────────────┘                          │
-└────────────────────────┼────────────────────────────────────────┘
-                         │ HTTP/REST
-┌────────────────────────▼────────────────────────────────────────┐
-│                        API LAYER                                │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │                  Express.js Server                      │   │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌───────────┐  │   │
-│  │  │ /climate │ │/satellite│ │/logistics│ │ /ai-brief │  │   │
-│  │  └────┬─────┘ └────┬─────┘ └────┬─────┘ └─────┬─────┘  │   │
-│  └───────┼────────────┼────────────┼──────────────┼────────┘   │
-└──────────┼────────────┼────────────┼──────────────┼────────────┘
-           │            │            │              │
-┌──────────▼────────────▼────────────▼──────────────▼────────────┐
-│                     SERVICE LAYER                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
-│  │  geeService  │  │weatherService│  │   aiAnalyzer        │  │
-│  │  (Sentinel-2)│  │ (Open-Meteo) │  │   (Gemini AI)       │  │
-│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
-│  │forecasting   │  │feedEstimator │  │  routeOptimizer      │  │
-│  │(NDVI Predict)│  │(Requirements)│  │  (CVRP Algorithm)   │  │
-│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
-└────────────────────────────────────────────────────────────────┘
-           │            │            │
-┌──────────▼────────────▼────────────▼───────────────────────────┐
-│                   EXTERNAL APIS                               │
-│  ┌────────────┐ ┌────────────┐ ┌────────────┐                │
-│  │ Google EEE │ │ Open-Meteo │ │  Gemini AI │                │
-│  │ (Satellite)│ │  (Weather) │  │  (LLM)    │                │
-│  └────────────┘ └────────────┘ └────────────┘                │
-└────────────────────────────────────────────────────────────────┘
++-------------------------------------------------------------------------+
+|                         CLIENT LAYER                                    |
+|  +----------+ +-----------+ +----------+ +----------------------+       |
+|  | React    | | Tailwind  | | Framer   | |     Recharts         |       |
+|  | 19 + TS  | |   CSS 4   | |  Motion  | |   Visualization      |       |
+|  +----+-----+ +-----+-----+ +----+-----+ +-----------+----------+       |
+|       +--------------+----+-------------------+                       |
+|                      V    V                                           |
+|              +-------------------------------+                        |
+|              |      Leaflet Maps             |                        |
+|              |   (6 Basemap Layers)          |                        |
+|              +---------------+---------------+                        |
++------------------------------+----------------------------------------+
+                               | HTTP/REST
++------------------------------V----------------------------------------+
+|                          API LAYER                                     |
+|  +---------------------------------------------------------------+     |
+|  |                    Express.js Server                           |     |
+|  |  +----------+ +----------+ +----------+ +---------------+      |     |
+|  |  | /climate | |/satellite| |/logistics| | /ai-brief     |      |     |
+|  |  +----+-----+ +----+-----+ +----+------+ +-------+-------+      |     |
+|  +-------+------------+------------+---------------+--------------+     |
++----------+------------+------------+---------------+--------------------+
+           |            |            |               |
++----------V------------V------------V---------------V--------------------+
+|                        SERVICE LAYER                                   |
+|  +------------------+  +------------------+  +---------------------+   |
+|  |  geeService      |  | weatherService   |  |   aiAnalyzer        |   |
+|  |  (Sentinel-2)    |  | (Open-Meteo)     |  |   (Gemini AI)       |   |
+|  +------------------+  +------------------+  +---------------------+   |
+|  +------------------+  +------------------+  +---------------------+   |
+|  | forecasting      |  | feedEstimator    |  |  routeOptimizer      |   |
+|  | (NDVI Predict)   |  | (Requirements)   |  |  (CVRP Algorithm)   |   |
+|  +------------------+  +------------------+  +---------------------+   |
++-------------------------------------------------------------------------+
+           |            |            |
++----------V------------V------------V------------------------------------+
+|                        EXTERNAL APIS                                   |
+|  +------------+  +------------+  +------------+                         |
+|  | Google EEE |  | Open-Meteo |  | Gemini AI  |                         |
+|  | (Satellite)|  | (Weather)  |  |  (LLM)     |                         |
+|  +------------+  +------------+  +------------+                         |
++-------------------------------------------------------------------------+
 ```
 
 ---
 
-## 👥 Team Contributors
+## Team Contributors
 
 <div align="center">
 
 | Role | Name | Location | Focus Area |
 |------|------|----------|------------|
-| 👨‍💻 **Frontend Lead** | Zeamanuel Million | Addis Ababa, ET | React, TypeScript, UI Components |
-| 🎨 **UI/UX Designer** | Bekan Seifu | Addis Ababa, ET | Design System, Glass Morphism, Animations |
-| 🧠 **AI/ML Engineer** | Elshaday Habtamu | Addis Ababa, ET | GEE Integration, NDVI Models, Gemini AI |
-| ⚙️ **Backend Engineer** | Abdi Megersa | Addis Ababa, ET | Express.js, APIs, Route Optimization |
-| 📋 **Product/Other** | Dawit Getachew Tariku | Addis Ababa, ET | Documentation, Testing, Coordination |
+| **Frontend Lead** | Zeamanuel Million | Addis Ababa, ET | React, TypeScript, UI Components |
+| **UI/UX Designer** | Bekan Seifu | Addis Ababa, ET | Design System, Glass Morphism, Animations |
+| **AI/ML Engineer** | Elshaday Habtamu | Addis Ababa, ET | GEE Integration, NDVI Models, Gemini AI |
+| **Backend Engineer** | Abdi Megersa | Addis Ababa, ET | Express.js, APIs, Route Optimization |
+| **Product/Other** | Dawit Getachew Tariku | Addis Ababa, ET | Documentation, Testing, Coordination |
 
 </div>
 
@@ -525,7 +364,7 @@ PastureAI provides a **unified command center** with:
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -580,13 +419,13 @@ docker run -p 3000:3000 --env-file .env pastureai
 
 ---
 
-## 📊 Project Stats
+## Project Stats
 
 <p align="center">
   <img src="https://img.shields.io/badge/Frontend_Files-15+-blue?style=for-the-badge" alt="Frontend Files">
   <img src="https://img.shields.io/badge/Backend_Services-8+-green?style=for-the-badge" alt="Backend Services">
   <img src="https://img.shields.io/badge/CSS_Lines-940+-purple?style=for-the-badge" alt="CSS Lines">
-  <img src="https://img.shields.io/badge/Screenshots-25+-orange?style=for-the-badge" alt="Screenshots">
+  <img src="https://img.shields.io/badge/Screenshots-17+-orange?style=for-the-badge" alt="Screenshots">
 </p>
 
 ### Code Metrics
@@ -599,36 +438,36 @@ docker run -p 3000:3000 --env-file .env pastureai
 | CSS Design System | ~940 lines |
 | API Endpoints | 12+ |
 | External Integrations | 4 |
-| Test Screenshots | 22+ |
+| Screenshots | 17 |
 
 ---
 
-## 🛡️ Security
+## Security
 
-- 🔒 **No hardcoded secrets** — All credentials via environment variables
-- 🚫 **`.env` in `.gitignore`** — Prevents accidental secret commits
-- 🛡️ **API Key validation** — Server-side verification before external calls
-- 📝 **Input sanitization** — All user inputs validated and sanitized
-- 🔒 **CORS configuration** — Restricted cross-origin access
-- 📋 **Security headers** — Helmet.js middleware ready
+- **No hardcoded secrets** -- All credentials via environment variables
+- **`.env` in `.gitignore`** -- Prevents accidental secret commits
+- **API Key validation** -- Server-side verification before external calls
+- **Input sanitization** -- All user inputs validated and sanitized
+- **CORS configuration** -- Restricted cross-origin access
+- **Security headers** -- Helmet.js middleware ready
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
-### v1.1 — Q3 2026
+### v1.1 -- Q3 2026
 - [ ] Multi-language support (Amharic, Oromo, Somali)
 - [ ] Offline-first capabilities with service workers
 - [ ] Push notifications for alert thresholds
 - [ ] Export to PDF/Excel for reports
 
-### v1.2 — Q4 2026
+### v1.2 -- Q4 2026
 - [ ] Mobile apps (React Native / PWA)
 - [ ] SMS/USSD integration for feature phones
 - [ ] IoT sensor integration for ground truthing
 - [ ] Community crowdsourcing features
 
-### v2.0 — 2027
+### v2.0 -- 2027
 - [ ] Federated learning across regions
 - [ ] Drone imagery integration
 - [ ] Blockchain for aid transparency
@@ -636,7 +475,7 @@ docker run -p 3000:3000 --env-file .env pastureai
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [CONTRIBUTORS.md](CONTRIBUTORS.md) for details.
 
@@ -648,38 +487,33 @@ We welcome contributions! Please see our [CONTRIBUTORS.md](CONTRIBUTORS.md) for 
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Google** — Earth Engine API & Gemini AI
-- **Open-Meteo** — Free weather API
-- **Ethiopian Ministry of Agriculture** — Domain expertise
-- **Pastoral Communities** — Inspiration and feedback
+This project is licensed under the MIT License -- see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📞 Connect With Us
+## Acknowledgments
+
+- **Google** -- Earth Engine API & Gemini AI
+- **Open-Meteo** -- Free weather API
+- **Ethiopian Ministry of Agriculture** -- Domain expertise
+- **Pastoral Communities** -- Inspiration and feedback
+
+---
+
+## Connect With Us
 
 <div align="center">
 
 | Platform | Link |
 |----------|------|
-| 🐙 **GitHub** | [Hope0351/PastureAI](https://github.com/Hope0351/PastureAI) |
-| 📧 **Email** | Contact team via contributor emails above |
-| 🌍 **Location** | Addis Ababa, Ethiopia |
+| **GitHub** | [Hope0351/PastureAI](https://github.com/Hope0351/PastureAI) |
+| **Email** | Contact team via contributor emails above |
+| **Location** | Addis Ababa, Ethiopia |
 
 </div>
 
 <p align="center">
-  <sub>Built with ❤️ for Ethiopian pastoral communities</sub>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Made_in-Ethiopia-🇪🇹?style=flat-square" alt="Made in Ethiopia">
-  <img src="https://img.shields.io/badge/For_Pastoral_Communities-💚?style=flat-square" alt="For Pastoral Communities">
+  <sub>Built with care for Ethiopian pastoral communities</sub>
 </p>
