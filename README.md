@@ -80,160 +80,97 @@ PastureAI provides a **unified command center** with:
 
 ![Landing Page Hero](screenshots/01-landing-hero.png)
 
-Full-screen cinematic hero with parallax effects, gradient text logo, and compelling call-to-action buttons.
+Full-screen cinematic hero with parallax effects, gradient text logo ("GeoForage"), and compelling call-to-action buttons. Shows live monitoring status and coverage statistics.
 
 ---
 
-### 2. Landing Page - Feature Cards
+### 2. Landing Page - Platform Features
 
 ![Landing Features](screenshots/02-landing-features.png)
 
-Interactive feature cards showcasing core capabilities with hover animations and glass morphism design.
+Interactive feature cards showcasing the three core capabilities: **Sense** (Sentinel-2 NDVI + Open-Meteo rainfall), **Forecast** (Ensemble models for forage risk at 15/30/45/60 days), and **Dispatch** (Clarke-Wright routing for feed logistics).
 
 ---
 
-### 3. Executive Dashboard
+### 3. Executive Dashboard (/overview)
 
 ![Dashboard Overview](screenshots/03-dashboard-overview.png)
 
-Complete overview dashboard with KPI header, statistics grid, interactive map, timeline slider, and district detail panel.
+Complete command center overview featuring:
+- **KPI Header** -- Avoidable loss ($7.6M), zones monitored (10), critical alerts (2)
+- **Statistics Grid** -- 6 animated cards: Zones, Critical, Feed Deficit, At Risk, Mean NDVI, Loss at Risk
+- **Projection Timeline** -- Interactive 60-day slider (Today / +15d / +30d / +45d / +60d / Seasonal)
+- **Situational Awareness** -- Live Leaflet map with district overlays and priority zone panel
 
 ---
 
-### 4. Stats Cards Component
+### 4. Climate Analytics (/climate)
 
-![Stats Cards](screenshots/04-stats-cards.png)
+![Climate Analytics](screenshots/04-climate-analytics.png)
 
-6 animated KPI cards displaying: Total Zones, At-Risk Districts, Avg NDVI, Feed Deficit, Active Dispatches, Weather Alerts.
+Meteorological intelligence dashboard powered by Open-Meteo global coverage:
+- **Correlation Chart** -- 7-Day Cumulative Rainfall, Max Temperature, Drought Severity Index across all zones
+- **Zone Weather Cards** -- Per-district conditions (Borena Zone, Afar Zone, Siti/Shinile) with live status
+- **Metrics** -- Rainfall totals, temperature readings, weather icons per zone
 
----
-
-### 5. Timeline Slider Component
-
-![Timeline Slider](screenshots/05-timeline-slider.png)
-
-Visual 60-day prediction slider with pulse animations for temporal navigation through forage forecasts.
+**Climate Data Sources:** Open-Meteo API with real-time rainfall, temperature, humidity, and drought severity indices.
 
 ---
 
-### 6. Interactive Map Component
+### 5. Satellite Monitoring (/satellite)
 
-![Interactive Map](screenshots/06-interactive-map.png)
+![Satellite Monitoring](screenshots/05-satellite-monitoring.png)
 
-Premium Leaflet map with animated gradient border, glass morphism controls, district overlays, and live legend panel.
+Sentinel-2 vegetation intelligence via Google Earth Engine:
+- **Weather-Assimilated Model** -- Rangeland phenology calibrated with Sentinel-2
+- **Sensor Metadata** -- COPERNICUS/S2_SR_HARMONIZED, composite dates, raw DN values
+- **NDVI Forecast Chart** -- Historical observed NDVI + Ensemble forecast + Moving Average + Holt's Exponential Smoothing + Polynomial Regression
+- **Zone Selector** -- Dropdown to switch between monitoring zones
 
-**Map Features:**
-- **6 Basemap Layers** -- Voyager, Satellite, Sentinel-2, Terrain, Light, Dark
-- **Animated Gradient Border** -- Pulsing glow effect around map container
-- **Location Control** -- GPS geolocation integration
-- **Fullscreen Mode** -- Immersive map experience
-- **Coordinate Display** -- Live cursor position tracking
-- **Enhanced Popups** -- Metric cards grid inside popups
-- **Depot Markers** -- Bounce animation on supply points
-- **Route Lines** -- Hover highlight effects on optimized paths
-- **Live Legend Panel** -- Real-time district count by category
+**Satellite Features:** 10m resolution multispectral imagery, NDVI calculation, cloud-free compositing, trend analysis.
 
 ---
 
-### 7. District Detail Panel
+### 6. Logistics & Route Optimization (/logistics)
 
-![District Panel](screenshots/07-district-panel.png)
+![Logistics Routing](screenshots/06-logistics-routing.png)
 
-Click any zone on the map to reveal detailed metrics including population data, AI brief summary, and feed deficit indicators.
+Capacity-aware feed dispatch using Clarke-Wright Savings CVRP algorithm:
+- **Feed Depots** -- 5 strategic locations (Yabelo, Adama, Dire Dawa, Hawassa, Jijiga) with stock levels and fleet availability
+- **Network Summary** -- 9 active routes, 3,112 km total distance, 1,181 liters estimated fuel
+- **Dispatch Schedule Table** -- Depot, target zone, feed load, vehicle type, stops, distance, duration, fuel, status
+- **Validation Badge** -- "2/9 Feasible Routes validated"
 
----
-
-### 8. Climate Analytics Page
-
-![Climate Analytics](screenshots/08-climate-analytics.png)
-
-Comprehensive climate analytics dashboard with temperature trends, precipitation data, and drought index visualizations.
-
-**Climate Features:**
-- **Temperature Analysis** -- Current, forecast, and historical trends
-- **Precipitation Tracking** -- Rainfall patterns and predictions
-- **Drought Index** -- Standardized Precipitation Evapotranspiration Index (SPEI)
-- **Seasonal Outlook** -- 30/60/90 day forecasts
-- **Interactive Charts** -- Recharts-powered visualizations
+**Optimization Constraints:** Truck capacity (6T-20T, 10T-10T fleets), depot stock checks, multi-stop routing.
 
 ---
 
-### 9. Satellite Monitoring Page
+### 7. AI Brief Generator (/ai-brief)
 
-![Satellite Monitoring](screenshots/09-satellite-monitoring.png)
+![AI Brief](screenshots/07-ai-brief.png)
 
-Sentinel-2 NDVI monitoring via Google Earth Engine with vegetation health heat maps and temporal analysis.
+Executive decision support briefs powered by Google Gemini AI:
+- **Zone Brief Header** -- Borena Zone, +30 day horizon, date, Rules Engine source
+- **Priority Warning Badge** -- Color-coded alert (Warning/Critical/Normal)
+- **Executive Summary** -- Plain-language prediction ("moderate pasture stress... decisive action by day 15 could save ~1,576 head")
+- **Livestock Saved Comparison** -- Action-by +15d / +30d / +45d / +60d with "BEST BY DAY 15" highlight
+- **Print Brief Button** -- Export-ready formatting
 
-**Satellite Features:**
-- **Sentinel-2 Integration** -- 10m resolution multispectral imagery
-- **NDVI Calculation** -- Normalized Difference Vegetation Index
-- **Temporal Compositing** -- Cloud-free mosaic generation
-- **Health Heat Maps** -- Color-coded vegetation density
-- **Trend Analysis** -- Historical vegetation changes
-- **Alert Zones** -- Automated anomaly detection
-
----
-
-### 10. Logistics & Route Optimization
-
-![Logistics Routing](screenshots/10-logistics-routing.png)
-
-Intelligent route optimization using Clarke-Wright savings algorithm with vehicle capacity constraints.
-
-**Logistics Features:**
-- **Vehicle Routing** -- Capacitated VRP optimization
-- **Depot Management** -- Supply point locations and inventory
-- **Route Visualization** -- Optimized paths on map
-- **Load Planning** -- Capacity-aware allocation
-- **ETA Calculations** -- Estimated arrival times
-- **Cost Estimation** -- Fuel and distance costs
+**AI Fallback:** Deterministic rules engine when Gemini API is unavailable.
 
 ---
 
-### 11. AI Brief Generator
+### 8. Livestock Management (/livestock)
 
-![AI Brief](screenshots/11-ai-brief.png)
+![Livestock Management](screenshots/08-livestock-management.png)
 
-Auto-generated executive briefs powered by Google Gemini AI with actionable recommendations for decision-makers.
+Herd pressure and emergency feed need assessment:
+- **Summary Cards** -- Feed Needed (4,066 metric tons), Livestock at Risk (1,299,591 head), Asset Loss at Risk ($7.59M USD)
+- **Action Date Table** -- Per-district livestock saved by intervention timing (+15d / +30d / +45d / +60d) with best window recommendation
+- **Zone Breakdown** -- Borena Zone, Afar Zone 1, Siti (Shinile), Bale Lowlands with TLU-based deficit estimates
+- **Impact Metric** -- "+30d -> 25,532 head saved" banner
 
-**AI Features:**
-- **Gemini Integration** -- Google's most capable AI model
-- **Executive Summarization** -- Complex data to clear insights
-- **Actionable Recommendations** -- Specific intervention suggestions
-- **Confidence Scores** -- AI prediction reliability metrics
-- **Rules Engine Fallback** -- Deterministic logic when AI unavailable
-- **Export Formats** -- PDF/Word compatible briefs
-
----
-
-### 12. Livestock Management
-
-![Livestock Management](screenshots/12-livestock-management.png)
-
-Comprehensive livestock tracking with population estimates, feed requirements, and vulnerability assessments.
-
-**Livestock Features:**
-- **Population Tracking** -- Cattle, camels, goats, sheep counts
-- **Feed Requirements** -- Daily nutritional needs calculation
-- **Vulnerability Scoring** -- At-risk population identification
-- **Trend Analysis** -- Population changes over time
-- **Distribution Maps** -- Livestock density visualization
-
----
-
-### 13. Navigation Bar Component
-
-![Navbar Component](screenshots/13-navbar-component.png)
-
-Glass morphism navigation bar with responsive hamburger menu, theme toggle, and status indicator pills.
-
----
-
-### 14. Map Controls & Basemap Switcher
-
-![Map Controls](screenshots/14-map-controls.png)
-
-Advanced map controls including basemap layer switcher (6 layers), zoom controls, and layer visibility toggles.
+**Data Source:** Literature-aligned zone estimates (not live census), modeled from site NDVI risk and herd pressure.
 
 ---
 
@@ -419,7 +356,7 @@ docker run -p 3000:3000 --env-file .env pastureai
   <img src="https://img.shields.io/badge/Frontend_Files-15+-blue?style=for-the-badge" alt="Frontend Files">
   <img src="https://img.shields.io/badge/Backend_Services-8+-green?style=for-the-badge" alt="Backend Services">
   <img src="https://img.shields.io/badge/CSS_Lines-940+-purple?style=for-the-badge" alt="CSS Lines">
-  <img src="https://img.shields.io/badge/Screenshots-14+-orange?style=for-the-badge" alt="Screenshots">
+  <img src="https://img.shields.io/badge/Screenshots-8_Unique-orange?style=for-the-badge" alt="Screenshots">
 </p>
 
 ### Code Metrics
@@ -432,7 +369,7 @@ docker run -p 3000:3000 --env-file .env pastureai
 | CSS Design System | ~940 lines |
 | API Endpoints | 12+ |
 | External Integrations | 4 |
-| Feature Screenshots | 14 |
+| Feature Screenshots | 8 (unique pages) |
 
 ---
 
