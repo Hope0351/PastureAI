@@ -5,21 +5,18 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Install all dependencies (including devDependencies for building)
-RUN npm install
+# Install all dependencies
+RUN npm install --legacy-peer-deps
 
-# Copy source code
+# Copy everything else
 COPY . .
 
-# Build for production
+# Build
 RUN npm run build
 
-# Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Expose port
 EXPOSE 3000
 
-# Start the server
 CMD ["node", "dist/server.cjs"]
