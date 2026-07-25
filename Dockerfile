@@ -1,22 +1,25 @@
 FROM node:20-alpine
+
 WORKDIR /app
 
-# Install dependencies first (better layer caching)
-COPY package.json ./
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install all dependencies (including devDependencies for building)
 RUN npm install
 
 # Copy source code
 COPY . .
 
-# Build the application  
+# Build for production
 RUN npm run build
 
-# Set production environment
+# Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Expose the port
+# Expose port
 EXPOSE 3000
 
-# Run the built server
+# Start the server
 CMD ["node", "dist/server.cjs"]
