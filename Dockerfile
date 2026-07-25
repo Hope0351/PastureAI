@@ -1,22 +1,14 @@
-FROM node:20-slim
+FROM node:20
 
 WORKDIR /app
 
-# Install dependencies
-COPY package.json package-lock.json ./
-RUN npm ci
-
-# Copy source code
+COPY package*.json ./
+RUN npm install
 COPY . .
-
-# Build application  
 RUN npm run build
 
-# Set production environment
-ENV NODE_ENV=production ENV PORT=3000
-
-# Expose port
+ENV NODE_ENV=production
+ENV PORT=3000
 EXPOSE 3000
 
-# Start command
-CMD ["node", "dist/server.cjs"]
+CMD node dist/server.cjs
