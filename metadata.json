@@ -1,0 +1,6 @@
+{
+  "name": "GeoForage AI",
+  "description": "AI-powered forage prediction and livestock feed distribution decision support platform for Ethiopia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
