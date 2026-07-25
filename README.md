@@ -41,8 +41,6 @@
 | [Visual Gallery](#visual-gallery) | Every page/feature screenshotted |
 | [Tech Stack](#tech-stack) | Technologies powering the platform |
 | [Architecture](#system-architecture) | How components work together |
-| [Responsive Design](#responsive-design) | Mobile & tablet views |
-| [Dark Mode](#dark-mode) | Light/Dark theme support |
 | [Team](#team-contributors) | Meet the contributors |
 | [Quick Start](#quick-start) | Run locally in 2 minutes |
 | [Security](#security) | Security practices |
@@ -204,42 +202,6 @@ PastureAI provides a **unified command center** with:
 ![Stats Cards](screenshots/stats-cards.png)
 
 *Animated metric cards with trend indicators, color-coded values, and hover glow effects.*
-
----
-
-## Responsive Design
-
-### Mobile Views (375px)
-
-![Mobile Home](screenshots/mobile-home.png)
-
-*Fully responsive landing page optimized for mobile devices with touch-friendly interactions.*
-
-![Mobile Dashboard](screenshots/mobile-dashboard.png)
-
-*Mobile-optimized dashboard with stacked cards, collapsible panels, and swipeable map.*
-
-### Tablet View (768px)
-
-![Tablet Dashboard](screenshots/tablet-dashboard.png)
-
-*Adaptive tablet layout with two-column grid and optimized touch targets.*
-
----
-
-## Dark Mode
-
-![Dark Landing](screenshots/dark-landing.png)
-
-*Dark theme variant of the landing page with inverted colors and adjusted contrast ratios.*
-
-![Dark Dashboard](screenshots/dark-dashboard.png)
-
-*Dark mode dashboard with reduced eye strain for extended use sessions.*
-
-![Dark Satellite](screenshots/dark-satellite.png)
-
-*Dark mode satellite page optimized for imagery analysis in low-light environments.*
 
 ---
 
@@ -425,7 +387,7 @@ docker run -p 3000:3000 --env-file .env pastureai
   <img src="https://img.shields.io/badge/Frontend_Files-15+-blue?style=for-the-badge" alt="Frontend Files">
   <img src="https://img.shields.io/badge/Backend_Services-8+-green?style=for-the-badge" alt="Backend Services">
   <img src="https://img.shields.io/badge/CSS_Lines-940+-purple?style=for-the-badge" alt="CSS Lines">
-  <img src="https://img.shields.io/badge/Screenshots-17+-orange?style=for-the-badge" alt="Screenshots">
+  <img src="https://img.shields.io/badge/Screenshots-11+-orange?style=for-the-badge" alt="Screenshots">
 </p>
 
 ### Code Metrics
@@ -438,7 +400,7 @@ docker run -p 3000:3000 --env-file .env pastureai
 | CSS Design System | ~940 lines |
 | API Endpoints | 12+ |
 | External Integrations | 4 |
-| Screenshots | 17 |
+| Screenshots | 11 |
 
 ---
 
