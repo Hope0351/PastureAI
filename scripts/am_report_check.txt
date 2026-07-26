@@ -1,0 +1,8 @@
+summary: ethiopic=65 leaks=[]
+reason: ethiopic=67 leaks=[]
+recommendedAction: ethiopic=55 leaks=[]
+distributionStrategy: ethiopic=18 leaks=[]
+plainLanguageExplanation: ethiopic=67 leaks=[]
+livestockSavedPrediction: ethiopic=207 leaks=[]
+impact.summary: ethiopic=55 leaks=[]
+generatedBy=rules-engine
