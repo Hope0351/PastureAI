@@ -84,7 +84,7 @@ export default function App() {
       setAiBrief(districtProfile.aiRecommendation);
       setHasLoadedApp(true);
     } catch (err) {
-      console.error('Failed to load GeoForage AI dataset:', err);
+      console.error('Failed to load Mesk dataset:', err);
       setError(t.app.connectionError);
     } finally {
       setIsLoading(false);
@@ -223,7 +223,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="font-display text-lg font-bold text-ink">
-                GeoForage<span className="text-field">AI</span>
+                Mesk
               </p>
               <p className="mt-1 text-xs text-soft">
                 {t.brand.footerTagline}

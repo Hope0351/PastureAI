@@ -18,7 +18,7 @@
 
 <div align="center">
 
-# PastureAI
+# Mesk (PastureAI)
 
 ### *AI-Powered Ethiopian Pastoral Forage Prediction & Livestock Management Platform*
 
@@ -80,7 +80,7 @@ PastureAI provides a **unified command center** with:
 
 ![Landing Page Hero](screenshots/01-landing-hero.png)
 
-Full-screen cinematic hero with parallax effects, gradient text logo ("GeoForage"), and compelling call-to-action buttons. Shows live monitoring status and coverage statistics.
+Full-screen cinematic hero with parallax effects, gradient text logo ("Mesk"), and compelling call-to-action buttons. Shows live monitoring status and coverage statistics.
 
 ---
 

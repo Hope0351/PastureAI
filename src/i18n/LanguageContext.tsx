@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 import { am } from './am';
 import { en, type Locale, type TranslationDict } from './en';
 
-const STORAGE_KEY = 'geoforage-locale';
+const STORAGE_KEY = 'mesk-locale';
 
 const dictionaries: Record<Locale, TranslationDict> = { en, am };
 
@@ -45,8 +45,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     document.documentElement.dataset.locale = locale;
     document.title =
       locale === 'am'
-        ? 'GeoForage AI — የእንስሳት ጠባቂ የሳር መረጃ'
-        : 'GeoForage AI — Pastoral Forage Intelligence';
+        ? 'Mesk — የእንስሳት ጠባቂ የሳር መረጃ'
+        : 'Mesk — Pastoral Forage Intelligence';
   }, [locale]);
 
   const tf = useCallback((template: string, vars: Record<string, string | number>) => {

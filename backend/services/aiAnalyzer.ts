@@ -199,7 +199,7 @@ export class AiAnalyzerService {
       try {
         const ai = new GoogleGenAI({
           apiKey,
-          httpOptions: { headers: { 'User-Agent': 'geoforage-ai' } },
+          httpOptions: { headers: { 'User-Agent': 'mesk' } },
         });
 
         const prompt = `You are an expert GIS, remote sensing, and rangeland management advisor specializing in pastoral forage prediction and emergency feed logistics.

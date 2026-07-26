@@ -127,13 +127,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnter }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
-            Geo
-            <span className="text-gradient-field" style={{ 
-              background: 'linear-gradient(135deg, #4ade80, #22c55e, #86efac)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>Forage</span>
+            <span
+              style={{
+                background: 'linear-gradient(135deg, #ffffff, #4ade80, #86efac)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              Mesk
+            </span>
           </motion.p>
 
           <motion.h1
@@ -335,7 +338,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnter }) => {
       <footer className="border-t border-line-subtle px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <p className="font-display text-lg font-bold text-ink">GeoForage<span className="text-field">AI</span></p>
+            <p className="font-display text-lg font-bold text-ink">Mesk</p>
             <p className="mt-1 text-xs text-soft">{t.brand.landingFooter}</p>
           </div>
           <div className="flex items-center gap-4 text-xs text-muted">
