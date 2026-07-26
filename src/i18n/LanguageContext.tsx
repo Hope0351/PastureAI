@@ -45,8 +45,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     document.documentElement.dataset.locale = locale;
     document.title =
       locale === 'am'
-        ? 'Mesk — የእንስሳት ጠባቂ የሳር መረጃ'
-        : 'Mesk — Pastoral Forage Intelligence';
+        ? 'መስክAI — የእንስሳት ጠባቂ የሳር መረጃ'
+        : 'መስክAI — Pastoral Forage Intelligence';
   }, [locale]);
 
   const tf = useCallback((template: string, vars: Record<string, string | number>) => {

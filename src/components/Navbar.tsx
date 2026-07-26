@@ -67,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <div className="min-w-0">
                 <h1 className="font-display text-xl font-bold tracking-tight text-ink">
-                  Mesk
+                  መስክ
                 </h1>
                 <p className="hidden truncate text-xs text-muted sm:block font-medium">
                   {t.brand.tagline}

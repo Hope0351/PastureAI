@@ -107,9 +107,9 @@ export const am: TranslationDict = {
     slideshowProgress: 'የስላይድዋዝ አገናኘ'
   },
   app: {
-    loadingTitle: 'Mesk በመጫን ላይ',
+    loadingTitle: 'መስክAI በመጫን ላይ',
     loadingSubtitle: 'የሳተላይት መረጃ · የአየር ምግቦች · የትንበያ ሞዴሎች በመጀመር ላይ',
-    connectionError: 'ከ Mesk አገልግሎቶች ጋር መገናኘት አልተቻለም። አገልጋዩ እየሰራ መሆኑን ያረጋግጡ።'
+    connectionError: 'ከ መስክAI አገልግሎቶች ጋር መገናኘት አልተቻለም። አገልጋዩ እየሰራ መሆኑን ያረጋግጡ።'
   },
   overview: {
     kicker: 'የትእዛዝ አጠቃላይ እይታ',
@@ -262,7 +262,7 @@ export const am: TranslationDict = {
     recommendedAction: 'የሚሰጡ እርምጃ',
     feedDistribution: 'የመኖ ማሰራጨት',
     plainLanguage: 'የአንድድ ቋንቋ ማጠቃለያ',
-    generatedBy: 'በ Mesk የተቻቸት ላይ',
+    generatedBy: 'በ መስክAI የተቻቸት ላይ',
     priorityLabel: '{level}',
     reportId: 'መለያ: {id}',
     narrativeIntro: '{summary}',

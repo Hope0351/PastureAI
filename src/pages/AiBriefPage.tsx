@@ -99,7 +99,7 @@ export const AiBriefPage: React.FC<AiBriefPageProps> = ({ districts, timelineDay
                   {/* Breadcrumb */}
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-field bg-field-soft px-3 py-1.5 rounded-full">
                     <Sparkles className="h-3.5 w-3.5" />
-                    Mesk · {t.brief.decisionSupport}
+                    መስክAI · {t.brief.decisionSupport}
                   </span>
 
                   <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-ink">

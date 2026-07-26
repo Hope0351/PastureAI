@@ -84,7 +84,7 @@ export default function App() {
       setAiBrief(districtProfile.aiRecommendation);
       setHasLoadedApp(true);
     } catch (err) {
-      console.error('Failed to load Mesk dataset:', err);
+      console.error('Failed to load መስክAI dataset:', err);
       setError(t.app.connectionError);
     } finally {
       setIsLoading(false);
@@ -223,7 +223,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="font-display text-lg font-bold text-ink">
-                Mesk
+                መስክ
               </p>
               <p className="mt-1 text-xs text-soft">
                 {t.brand.footerTagline}
