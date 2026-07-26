@@ -3,6 +3,7 @@ import { DistrictData, FeedRequirement, InterventionImpact } from '../types';
 import { Users, AlertCircle, ShieldAlert, DollarSign, HeartPulse, Beef, Wheat } from 'lucide-react';
 import axios from 'axios';
 import { api } from '../services/api';
+import { useLanguage } from '../i18n';
 
 interface LivestockPageProps {
   districts: DistrictData[];
@@ -11,6 +12,7 @@ interface LivestockPageProps {
 }
 
 export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelineDays }) => {
+  const { t, tf } = useLanguage();
   const [feedReqs, setFeedReqs] = useState<FeedRequirement[]>([]);
   const [impacts, setImpacts] = useState<InterventionImpact[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,11 +50,11 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
       {/* Page header */}
       <div className="gf-page-header">
         <div>
-          <span className="gf-kicker">Livestock & Feed</span>
-          <h2 className="gf-title mt-2">Herd pressure & emergency feed need</h2>
+          <span className="gf-kicker">{t.livestock.kicker}</span>
+          <h2 className="gf-title mt-2">{t.livestock.title}</h2>
           <p className="gf-subtitle mt-3">
-            TLU-based deficit estimates over a <strong className="text-field">+{timelineDays}-day</strong> horizon.
-            Herd counts are literature-aligned zone estimates, not a live census.
+            {t.livestock.subtitle}{' '}
+            <strong className="text-field">+{timelineDays}d</strong>
           </p>
         </div>
       </div>
@@ -61,27 +63,27 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <SummaryStat
           icon={<Wheat className="h-6 w-6" />}
-          label="Feed Needed"
+          label={t.livestock.feedNeeded}
           value={isLoading ? '—' : totalFeedTons.toLocaleString()}
-          unit="metric tons"
+          unit={t.livestock.metricTons}
           tone="signal"
-          description="Total estimated deficit"
+          description={t.livestock.totalDeficit}
         />
         <SummaryStat
           icon={<AlertCircle className="h-6 w-6" />}
-          label="Livestock at Risk"
+          label={t.livestock.livestockAtRisk}
           value={isLoading ? '—' : totalAnimalsRisk.toLocaleString()}
-          unit="head"
+          unit={t.common.head}
           tone="critical"
-          description="First-wave cohort estimate"
+          description={t.livestock.firstWave}
         />
         <SummaryStat
           icon={<DollarSign className="h-6 w-6" />}
-          label="Asset Loss at Risk"
+          label={t.livestock.assetLoss}
           value={isLoading ? '—' : `$${totalLossUSD.toLocaleString()}`}
           unit="USD"
           tone="field"
-          description="Without intervention"
+          description={t.stats.withoutIntervention}
         />
       </div>
 
@@ -92,14 +94,14 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
             <div>
               <h3 className="font-display text-lg font-bold tracking-tight text-ink flex items-center gap-2">
                 <HeartPulse className="h-5 w-5 text-ok" />
-                Livestock Saved by Action Date
+                {t.livestock.savedByDate}
               </h3>
               <p className="text-sm text-muted mt-1">
-                Modeled from site NDVI risk, herd pressure, and feed deficit. Earlier action averts more mortality.
+                {t.livestock.savedByDateDesc}
               </p>
             </div>
             <div className="rounded-xl bg-ok-soft px-4 py-2 text-sm font-bold text-ok tabular-nums">
-              +{actionDay}d → {totalSavedIfAct.toLocaleString()} head saved
+              {tf(t.livestock.headSavedBanner, { day: actionDay, count: totalSavedIfAct.toLocaleString() })}
             </div>
           </div>
         </div>
@@ -108,12 +110,12 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
           <table className="gf-table">
             <thead>
               <tr>
-                <th>District</th>
-                <th>Act by +15d</th>
-                <th>Act by +30d</th>
-                <th>Act by +45d</th>
-                <th>Act by +60d</th>
-                <th>Best Window</th>
+                <th>{t.livestock.district}</th>
+                <th>{t.livestock.actBy15}</th>
+                <th>{t.livestock.actBy30}</th>
+                <th>{t.livestock.actBy45}</th>
+                <th>{t.livestock.actBy60}</th>
+                <th>{t.livestock.bestWindow}</th>
               </tr>
             </thead>
             <tbody>
@@ -131,7 +133,7 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
                     <td className={`tabular-nums ${actionDay === 60 ? 'font-bold text-field bg-field-soft/50' : ''}`}>{cell(60)}</td>
                     <td>
                       {impact ? (
-                        <span className="gf-badge-ok">Day {impact.bestActionByDay}</span>
+                        <span className="gf-badge-ok">{tf(t.livestock.dayN, { n: impact.bestActionByDay })}</span>
                       ) : (
                         '—'
                       )}
@@ -149,7 +151,7 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
         <div className="p-5 pb-4 border-b border-line-subtle flex items-center gap-2">
           <Users className="h-5 w-5 text-field" />
           <h3 className="font-display text-lg font-bold tracking-tight text-ink">
-            Zone Demographics & Allocations
+            {t.livestock.demographics}
           </h3>
         </div>
         
@@ -157,15 +159,15 @@ export const LivestockPage: React.FC<LivestockPageProps> = ({ districts, timelin
           <table className="gf-table">
             <thead>
               <tr>
-                <th>District</th>
-                <th className="text-center"><Beef className="h-4 w-4 mx-auto mb-1" />Cattle</th>
-                <th className="text-center"><Beef className="h-4 w-4 mx-auto mb-1" />Camels</th>
-                <th className="text-center"><Wheat className="h-4 w-4 mx-auto mb-1" />Goats & Sheep</th>
-                <th>Total TLU</th>
-                <th>Feed (t)</th>
-                <th>At Risk</th>
-                <th>Priority</th>
-                <th>Depot</th>
+                <th>{t.livestock.district}</th>
+                <th className="text-center"><Beef className="h-4 w-4 mx-auto mb-1" />{t.livestock.cattle}</th>
+                <th className="text-center"><Beef className="h-4 w-4 mx-auto mb-1" />{t.livestock.camels}</th>
+                <th className="text-center"><Wheat className="h-4 w-4 mx-auto mb-1" />{t.livestock.goatsSheep}</th>
+                <th>{t.livestock.totalTlu}</th>
+                <th>{t.livestock.feedT}</th>
+                <th>{t.livestock.atRisk}</th>
+                <th>{t.livestock.priority}</th>
+                <th>{t.livestock.depot}</th>
               </tr>
             </thead>
             <tbody>

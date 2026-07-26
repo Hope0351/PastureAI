@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { DistrictForecast, NdviRecord } from '../types';
+import { useLanguage } from '../i18n';
 
 ChartJS.register(
   CategoryScale,
@@ -32,6 +33,7 @@ interface NdviChartProps {
 }
 
 export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical = [], forecast, darkMode = true }) => {
+  const { t, tf } = useLanguage();
   // Combine historical Sentinel-2 dates + forecast horizon dates
   const historicalLabels = historical.map((h) => h.date);
   const historicalNdvi = historical.map((h) => h.ndvi);
@@ -91,7 +93,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
     labels,
     datasets: [
       {
-        label: 'Sentinel-2 Observed NDVI (Historical)',
+        label: t.charts.observedNdvi,
         data: historicalDataPoints,
         borderColor: '#10B981',
         backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -100,7 +102,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
         pointRadius: 2,
       },
       {
-        label: 'Ensembled Forecast NDVI',
+        label: t.charts.ensembleForecast,
         data: forecastDataPoints,
         borderColor: '#F59E0B',
         backgroundColor: 'rgba(245, 158, 11, 0.15)',
@@ -111,7 +113,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
         pointRadius: 4,
       },
       {
-        label: 'Moving Average (MA)',
+        label: t.charts.movingAverage,
         data: movingAvgPoints,
         borderColor: '#0284C7',
         borderDash: [2, 2],
@@ -120,7 +122,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
         fill: false,
       },
       {
-        label: "Holt's Exponential Smoothing",
+        label: t.charts.holt,
         data: expSmoothingPoints,
         borderColor: '#A855F7',
         borderDash: [2, 2],
@@ -129,7 +131,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
         fill: false,
       },
       {
-        label: 'Polynomial Regression Curve',
+        label: t.charts.polynomial,
         data: polyPoints,
         borderColor: '#EF4444',
         borderDash: [2, 2],
@@ -154,7 +156,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
       },
       title: {
         display: true,
-        text: `GEE Copernicus Sentinel-2 Vegetation Index & Statistical Forecasts — ${districtName}`,
+        text: tf(t.charts.ndviTitle, { name: districtName }),
         color: textColor,
         font: { size: 13, weight: 'bold' as const },
       },
@@ -178,7 +180,7 @@ export const NdviChart: React.FC<NdviChartProps> = ({ districtName, historical =
         grid: { color: gridColor },
         title: {
           display: true,
-          text: 'NDVI Index (0.0 to 1.0)',
+          text: t.charts.ndviAxis,
           color: subTextColor,
           font: { size: 11 },
         },

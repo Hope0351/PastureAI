@@ -242,6 +242,7 @@ async function startServer() {
       }
       const timelineDays = Number(req.query.timeline) || 30;
       const includeAi = req.query.ai !== '0';
+      const lang = req.query.lang === 'am' ? 'am' : 'en';
 
       const [district, satellite, forecast, feedReq, route] = await Promise.all([
         dataProcessor.processDistrict(districtId),
@@ -252,7 +253,7 @@ async function startServer() {
       ]);
 
       const aiBrief = includeAi
-        ? await aiAnalyzer.generateDistrictAnalysis(districtId, timelineDays)
+        ? await aiAnalyzer.generateDistrictAnalysis(districtId, timelineDays, lang)
         : null;
 
       res.json({
@@ -332,7 +333,8 @@ async function startServer() {
         return res.status(404).json({ error: 'District not found' });
       }
       const timelineDays = Number(req.query.timeline) || 30;
-      res.json(await aiAnalyzer.generateDistrictAnalysis(districtId, timelineDays));
+      const lang = req.query.lang === 'am' ? 'am' : 'en';
+      res.json(await aiAnalyzer.generateDistrictAnalysis(districtId, timelineDays, lang));
     } catch {
       res.status(500).json({ error: 'Failed to generate AI executive analysis' });
     }
@@ -344,7 +346,8 @@ async function startServer() {
       if (!knownDistrict(districtId)) {
         return res.status(404).json({ error: 'District not found' });
       }
-      res.json(await aiAnalyzer.generateDistrictAnalysis(districtId, req.body.timelineDays || 30));
+      const lang = req.body.lang === 'am' ? 'am' : 'en';
+      res.json(await aiAnalyzer.generateDistrictAnalysis(districtId, req.body.timelineDays || 30, lang));
     } catch {
       res.status(500).json({ error: 'Failed to generate AI executive analysis' });
     }
@@ -367,7 +370,7 @@ async function startServer() {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`[GeoForage AI] Server listening on http://0.0.0.0:${PORT}`);
     // Prefetch Sentinel-2 map id so the first map click is fast
-    if (process.env.GEE_SERVICE_ACCOUNT_JSON) {
+    if (process.env.GEE_SERVICE_ACCOUNT_FILE || process.env.GEE_SERVICE_ACCOUNT_JSON) {
       geeService
         .getSentinel2MapTiles('rgb')
         .then(() => console.log('[GeoForage AI] Sentinel-2 map tiles warmed'))

@@ -3,6 +3,8 @@ import { NdviChart } from '../components/NdviChart';
 import { DistrictData, DistrictForecast, NdviRecord } from '../types';
 import { Layers, Calendar, ShieldCheck, Database, Satellite, Radio, Sparkles } from 'lucide-react';
 import axios from 'axios';
+import { useLanguage } from '../i18n';
+import { riskLabel } from '../i18n/localize';
 
 interface SatellitePageProps {
   districts: DistrictData[];
@@ -19,6 +21,7 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
   forecast,
   darkMode = false,
 }) => {
+  const { t } = useLanguage();
   const currentDistrict = selectedDistrict || districts[0];
   const [historical, setHistorical] = useState<NdviRecord[]>([]);
   const [satelliteMeta, setSatelliteMeta] = useState<any>(null);
@@ -48,15 +51,15 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
       {/* Page header */}
       <div className="gf-page-header">
         <div>
-          <span className="gf-kicker">Remote Sensing</span>
-          <h2 className="gf-title mt-2">Sentinel-2 vegetation intelligence</h2>
+          <span className="gf-kicker">{t.satellite.kicker}</span>
+          <h2 className="gf-title mt-2">{t.satellite.title}</h2>
           <p className="gf-subtitle mt-3">
-            Copernicus NDVI with weather assimilation. Live Earth Engine compute when credentials are configured for real-time analysis.
+            {t.satellite.subtitle}
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm text-muted">Zone</span>
+          <span className="text-sm text-muted">{t.common.zone}</span>
           <select
             value={currentDistrict?.id || ''}
             onChange={(e) => {
@@ -104,14 +107,14 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
               
               <div>
                 <p className="font-display text-lg font-bold text-ink flex items-center gap-2">
-                  {satelliteMeta.dataSource === 'live' ? 'Live Google Earth Engine' : 'Weather-assimilated Model'}
+                  {satelliteMeta.dataSource === 'live' ? t.satellite.liveGee : t.satellite.weatherModel}
                   <Sparkles className={`h-4 w-4 ${satelliteMeta.dataSource === 'live' ? 'text-ok' : 'text-signal'}`} />
                 </p>
                 <p className="mt-1 text-sm text-muted max-w-lg leading-relaxed">
                   {satelliteMeta.method ||
                     (satelliteMeta.dataSource === 'live'
-                      ? 'Real-time GEE Sentinel-2 NDVI point reduction with cloud-free compositing.'
-                      : 'District baselines fused with live Open-Meteo weather signals for accurate phenology modeling.')}
+                      ? t.satellite.liveMethod
+                      : t.satellite.modeledMethod)}
                 </p>
               </div>
             </div>
@@ -121,7 +124,7 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
                 ? 'border-ok/30 bg-ok text-white'
                 : 'border-signal/30 bg-signal text-white'
             }`}>
-              {satelliteMeta.dataSource?.toUpperCase() || 'MODELED'}
+              {satelliteMeta.dataSource === 'live' ? t.common.live.toUpperCase() : t.common.modeled.toUpperCase()}
             </span>
           </div>
         </div>
@@ -132,25 +135,25 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <MetaCard
             icon={<Layers className="h-5 w-5" />}
-            label="Sensor"
+            label={t.satellite.sensor}
             value={satelliteMeta.sensor}
             tone="sky"
           />
           <MetaCard
             icon={<Calendar className="h-5 w-5" />}
-            label="Composite Date"
+            label={t.satellite.compositeDate}
             value={satelliteMeta.date}
             tone="signal"
           />
           <MetaCard
             icon={<ShieldCheck className="h-5 w-5" />}
-            label="Raw DN"
+            label={t.satellite.rawDn}
             value={`DN ${satelliteMeta.rawDigitalNumber ?? satelliteMeta.rawModisDigitalNumber}`}
             tone="field"
           />
           <MetaCard
             icon={<Database className="h-5 w-5" />}
-            label="Mean NDVI"
+            label={t.satellite.meanNdvi}
             value={String(satelliteMeta.ndvi)}
             tone="sky"
             highlight
@@ -160,7 +163,7 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
 
       {/* NDVI Chart */}
       <NdviChart
-        districtName={currentDistrict?.name || 'Ethiopian Rangeland'}
+        districtName={currentDistrict?.name || t.satellite.ethRangeland}
         historical={historical}
         forecast={forecast}
         darkMode={darkMode}
@@ -171,21 +174,21 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
         <div className="p-5 pb-4 border-b border-line-subtle">
           <h3 className="font-display text-lg font-bold tracking-tight text-ink flex items-center gap-2">
             <Database className="h-5 w-5 text-field" />
-            Zone Vegetation Comparison
+            {t.satellite.zoneComparison}
           </h3>
-          <p className="text-sm text-muted mt-1">Click any row to view detailed NDVI history</p>
+          <p className="text-sm text-muted mt-1">{t.satellite.clickRow}</p>
         </div>
         
         <div className="overflow-x-auto">
           <table className="gf-table">
             <thead>
               <tr>
-                <th>District</th>
-                <th>Region</th>
+                <th>{t.satellite.district}</th>
+                <th>{t.satellite.region}</th>
                 <th>NDVI</th>
                 <th>VHI</th>
-                <th>Forage Index</th>
-                <th>Status</th>
+                <th>{t.satellite.forageIndex}</th>
+                <th>{t.satellite.status}</th>
               </tr>
             </thead>
             <tbody>
@@ -202,7 +205,7 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
                   <td>
                     <span className="font-semibold text-ink">{d.name}</span>
                     {currentDistrict?.id === d.id && (
-                      <span className="ml-2 text-[10px] text-field uppercase tracking-wider font-bold">Active</span>
+                      <span className="ml-2 text-[10px] text-field uppercase tracking-wider font-bold">{t.common.active}</span>
                     )}
                   </td>
                   <td className="text-muted">{d.region}</td>
@@ -228,7 +231,7 @@ export const SatellitePage: React.FC<SatellitePageProps> = ({
                           ? 'gf-badge-warn'
                           : 'gf-badge-ok'
                     }>
-                      {d.riskLevel}
+                      {riskLabel(t, d.riskLevel)}
                     </span>
                   </td>
                 </tr>

@@ -4,6 +4,8 @@ import L from 'leaflet';
 import { DistrictData, FeedDepot, OptimizedRoute } from '../types';
 import { Layers, Compass, Maximize2, Locate, Satellite, Map as MapIcon, Sun, Moon, Navigation, AlertCircle } from 'lucide-react';
 import { api } from '../services/api';
+import { useLanguage, type TranslationDict } from '../i18n';
+import { riskLabel } from '../i18n/localize';
 import 'leaflet/dist/leaflet.css';
 
 // Fix default leaflet marker icon issue in Vite/Webpack
@@ -59,44 +61,55 @@ interface MapComponentProps {
 // Map Basemap Options
 type BasemapType = 'voyager' | 'satellite' | 'sentinel2' | 'positron' | 'dark' | 'terrain';
 
-const BASEMAP_TILES: Record<BasemapType, { url: string; attribution: string; name: string; icon: React.ReactNode }> = {
+const BASEMAP_TILES: Record<BasemapType, { url: string; attribution: string; icon: React.ReactNode }> = {
   voyager: {
     url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
     attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-    name: 'Voyager',
     icon: <MapIcon className="h-3.5 w-3.5" />,
   },
   satellite: {
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri &mdash; Source: Esri, i-cubed, USDA',
-    name: 'Satellite',
     icon: <Satellite className="h-3.5 w-3.5" />,
   },
   sentinel2: {
     url: '',
     attribution: 'Copernicus Sentinel-2 via Google Earth Engine',
-    name: 'Sentinel-2',
     icon: <Sun className="h-3.5 w-3.5" />,
   },
   positron: {
     url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
     attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-    name: 'Light',
     icon: <Sun className="h-3.5 w-3.5" />,
   },
   dark: {
     url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-    name: 'Dark',
     icon: <Moon className="h-3.5 w-3.5" />,
   },
   terrain: {
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenTopoMap',
-    name: 'Terrain',
     icon: <Navigation className="h-3.5 w-3.5" />,
   },
 };
+
+function getBasemapLabel(t: TranslationDict, key: BasemapType): string {
+  switch (key) {
+    case 'voyager':
+      return t.map.voyager;
+    case 'satellite':
+      return t.map.satellite;
+    case 'sentinel2':
+      return 'Sentinel-2';
+    case 'positron':
+      return t.map.light;
+    case 'dark':
+      return t.map.dark;
+    case 'terrain':
+      return t.map.terrain;
+  }
+}
 
 // Helper component to center map on selection with smooth animation
 const MapRecenter: React.FC<{ selectedDistrict: DistrictData | null }> = ({ selectedDistrict }) => {
@@ -117,6 +130,7 @@ const MapRecenter: React.FC<{ selectedDistrict: DistrictData | null }> = ({ sele
 // Component to handle zoom to user location
 const LocationControl: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
   const map = useMap();
+  const { t } = useLanguage();
   
   const handleLocate = useCallback(() => {
     map.locate({ setView: true, maxZoom: 10 });
@@ -126,7 +140,7 @@ const LocationControl: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
     <button
       onClick={handleLocate}
       className={`gf-map-control-btn ${darkMode ? 'dark' : ''}`}
-      title="Center on Ethiopia"
+      title={t.map.centerEthiopia}
       style={{
         position: 'absolute',
         left: '12px',
@@ -162,6 +176,7 @@ const LocationControl: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
 // Fullscreen toggle control
 const FullscreenControl: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const { t } = useLanguage();
   
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
@@ -177,7 +192,7 @@ const FullscreenControl: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
     <button
       onClick={toggleFullscreen}
       className={`gf-map-control-btn ${darkMode ? 'dark' : ''}`}
-      title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+      title={isFullscreen ? t.map.exitFullscreen : t.map.fullscreen}
       style={{
         position: 'absolute',
         left: '12px',
@@ -296,6 +311,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   timelineDays,
   darkMode = true,
 }) => {
+  const { t, tf } = useLanguage();
+
   // Center of Ethiopia: [9.145, 40.4896]
   const ethiopiaCenter: [number, number] = [9.145, 40.4896];
 
@@ -303,7 +320,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   const [basemap, setBasemap] = useState<BasemapType>(darkMode ? 'dark' : 'voyager');
   const [userChoseBasemap, setUserChoseBasemap] = useState(false);
   const [sentinel2Loading, setSentinel2Loading] = useState(false);
-  const [sentinel2Error, setSentinel2Error] = useState<string | null>(null);
+  const [sentinel2Error, setSentinel2Error] = useState(false);
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   
@@ -326,13 +343,13 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     let cancelled = false;
     const load = async () => {
       setSentinel2Loading(true);
-      setSentinel2Error(null);
+      setSentinel2Error(false);
       try {
         await api.getSentinel2MapTiles('rgb');
       } catch (err) {
         console.error('Failed to warm Sentinel-2 map tiles:', err);
         if (!cancelled) {
-          setSentinel2Error('Sentinel-2 unavailable');
+          setSentinel2Error(true);
           setBasemap('satellite');
         }
       } finally {
@@ -397,6 +414,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   const activeTile = {
     ...BASEMAP_TILES[basemap],
     url: basemap === 'sentinel2' ? sentinel2Url : BASEMAP_TILES[basemap].url,
+    name: getBasemapLabel(t, basemap),
   };
   const underlayUrl = BASEMAP_TILES.positron.url;
 
@@ -488,13 +506,13 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               color: darkMode ? '#94a89a' : '#4a5f52',
               marginBottom: '4px',
             }}>
-              Loading Intelligence Layer
+              {t.map.loadingLayer}
             </p>
             <p style={{
               fontSize: '11px',
               color: darkMode ? '#6a7a6c' : '#7a8f7e',
             }}>
-              Rendering {districts.length} zones · {routes.length} routes
+              {tf(t.map.rendering, { zones: districts.length, routes: routes.length })}
             </p>
           </div>
         </div>
@@ -687,7 +705,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                           : 'rgba(34, 197, 94, 0.2)'
                     }`,
                   }}>
-                    {district.riskLevel}
+                    {riskLabel(t, district.riskLevel)}
                   </span>
                 </div>
 
@@ -712,7 +730,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       color: darkMode ? '#6a7a6c' : '#7a8f7e',
                       marginBottom: '4px',
                     }}>
-                      NDVI Index
+                      {t.map.ndviIndex}
                     </p>
                     <p style={{
                       fontSize: '18px',
@@ -737,7 +755,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       color: darkMode ? '#6a7a6c' : '#7a8f7e',
                       marginBottom: '4px',
                     }}>
-                      Livestock (TLU)
+                      {t.map.livestockTlu}
                     </p>
                     <p style={{
                       fontSize: '18px',
@@ -765,7 +783,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                     fontSize: '12px',
                   }}>
                     <span style={{ color: darkMode ? '#94a89a' : '#4a5f52' }}>
-                      <strong>Weather:</strong> {district.weather.weatherCondition}
+                      <strong>{t.map.weather}</strong> {district.weather.weatherCondition}
                     </span>
                     <span style={{
                       fontWeight: 700,
@@ -782,7 +800,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                     fontSize: '11px',
                     color: darkMode ? '#6a7a6c' : '#7a8f7e',
                   }}>
-                    <span>Drought Index</span>
+                    <span>{t.map.droughtIndex}</span>
                     <span style={{
                       fontWeight: 600,
                       color: district.weather.droughtSeverityIndex > 60 
@@ -827,7 +845,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                     e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 107, 66, 0.3)';
                   }}
                 >
-                  View Full Intelligence →
+                  {t.map.viewFull}
                 </button>
               </div>
             </Popup>
@@ -902,7 +920,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       fontWeight: 600,
                       color: darkMode ? '#94a89a' : '#4a5f52',
                     }}>
-                      Stock Available
+                      {t.map.stockAvailable}
                     </span>
                     <span style={{
                       fontSize: '14px',
@@ -942,9 +960,9 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       borderRadius: '8px',
                       background: darkMode ? 'rgba(19, 28, 22, 0.5)' : 'rgba(244, 246, 243, 0.8)',
                     }}>
-                      <p style={{ color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '2px' }}>Heavy 20T</p>
+                      <p style={{ color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '2px' }}>{t.map.heavy20}</p>
                       <p style={{ fontWeight: 700, color: darkMode ? '#eef2ee' : '#0d1f17' }}>
-                        {depot.trucksAvailable.heavyTransports20T} trucks
+                        {depot.trucksAvailable.heavyTransports20T} {t.common.trucks}
                       </p>
                     </div>
                     <div style={{
@@ -952,9 +970,9 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       borderRadius: '8px',
                       background: darkMode ? 'rgba(19, 28, 22, 0.5)' : 'rgba(244, 246, 243, 0.8)',
                     }}>
-                      <p style={{ color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '2px' }}>Off-Road 10T</p>
+                      <p style={{ color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '2px' }}>{t.map.offRoad10}</p>
                       <p style={{ fontWeight: 700, color: darkMode ? '#eef2ee' : '#0d1f17' }}>
-                        {depot.trucksAvailable.offRoadTrucks10T} trucks
+                        {depot.trucksAvailable.offRoadTrucks10T} {t.common.trucks}
                       </p>
                     </div>
                   </div>
@@ -1026,7 +1044,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                         fontWeight: 700,
                         color: darkMode ? '#eef2ee' : '#0d1f17',
                       }}>
-                        Delivery Corridor
+                        {t.map.deliveryCorridor}
                       </p>
                       <p style={{
                         fontSize: '11px',
@@ -1049,7 +1067,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       background: darkMode ? 'rgba(19, 28, 22, 0.5)' : 'rgba(244, 246, 243, 0.8)',
                       textAlign: 'center',
                     }}>
-                      <p style={{ fontSize: '10px', color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '4px' }}>Cargo</p>
+                      <p style={{ fontSize: '10px', color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '4px' }}>{t.map.cargo}</p>
                       <p style={{ fontSize: '15px', fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: darkMode ? '#fbbf24' : '#c47a1c' }}>
                         {route.allocatedFeedTons}T
                       </p>
@@ -1060,7 +1078,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                       background: darkMode ? 'rgba(19, 28, 22, 0.5)' : 'rgba(244, 246, 243, 0.8)',
                       textAlign: 'center',
                     }}>
-                      <p style={{ fontSize: '10px', color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '4px' }}>Distance</p>
+                      <p style={{ fontSize: '10px', color: darkMode ? '#6a7a6c' : '#7a8f7e', marginBottom: '4px' }}>{t.map.distance}</p>
                       <p style={{ fontSize: '15px', fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: darkMode ? '#60a5fa' : '#2563a3' }}>
                         {route.distanceKm}km
                       </p>
@@ -1076,10 +1094,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                     background: darkMode ? 'rgba(37, 99, 163, 0.08)' : 'rgba(37, 99, 163, 0.05)',
                   }}>
                     <span style={{ color: darkMode ? '#94a89a' : '#4a5f52' }}>
-                      Duration: <strong>{route.estimatedTimeHours}h</strong>
+                      {t.map.duration} <strong>{route.estimatedTimeHours}h</strong>
                     </span>
                     <span style={{ color: darkMode ? '#94a89a' : '#4a5f52' }}>
-                      Truck: <strong>{route.assignedTruckType}</strong>
+                      {t.map.truck} <strong>{route.assignedTruckType}</strong>
                     </span>
                   </div>
                 </div>
@@ -1134,19 +1152,19 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           className="hidden sm:flex"
           >
             <Layers style={{ width: '12px', height: '12px' }} />
-            Layer
+            {t.map.layer}
           </span>
           
           {(
             [
-              ['voyager', 'Voyager'],
-              ['satellite', 'Satellite'],
-              ['sentinel2', sentinel2Loading && basemap === 'sentinel2' ? 'S2…' : 'S-2'],
-              ['terrain', 'Terrain'],
-              ['positron', 'Light'],
-              ['dark', 'Dark'],
+              'voyager',
+              'satellite',
+              'sentinel2',
+              'terrain',
+              'positron',
+              'dark',
             ] as const
-          ).map(([key, label]) => (
+          ).map((key) => (
             <button
               key={key}
               onClick={() => selectBasemap(key)}
@@ -1183,7 +1201,9 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               }}
             >
               {BASEMAP_TILES[key].icon}
-              {label}
+              {key === 'sentinel2' && sentinel2Loading && basemap === 'sentinel2'
+                ? 'S2…'
+                : getBasemapLabel(t, key)}
             </button>
           ))}
         </div>
@@ -1212,7 +1232,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               borderTopColor: 'transparent',
               animation: 'spin 0.8s linear infinite',
             }} />
-            Loading Sentinel-2 imagery…
+            {t.map.loadingS2}
           </div>
         )}
         
@@ -1232,7 +1252,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}>
             <AlertCircle style={{ width: '14px', height: '14px', flexShrink: 0 }} />
-            {sentinel2Error} — showing fallback
+            {tf(t.map.showingFallback, { error: t.map.sentinelUnavailable })}
           </div>
         )}
       </div>
@@ -1284,7 +1304,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               fontFamily: "'Outfit', sans-serif",
               color: darkMode ? '#eef2ee' : '#0d1f17',
             }}>
-              Risk Scale
+              {t.map.riskScale}
             </span>
           </div>
           <span style={{
@@ -1326,7 +1346,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               color: darkMode ? '#d4e5d9' : '#166534',
               flex: 1,
             }}>
-              Healthy pasture
+              {t.map.healthyPasture}
             </span>
             <span style={{
               fontSize: '11px',
@@ -1360,7 +1380,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               color: darkMode ? '#fef3c7' : '#92400e',
               flex: 1,
             }}>
-              Stress / warning
+              {t.map.stressWarning}
             </span>
             <span style={{
               fontSize: '11px',
@@ -1404,7 +1424,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               color: darkMode ? '#fecaca' : '#991b1b',
               flex: 1,
             }}>
-              Critical deficit
+              {t.map.criticalDeficit}
             </span>
             <span style={{
               fontSize: '11px',
@@ -1451,7 +1471,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               fontWeight: 500,
               color: darkMode ? '#94a89a' : '#4a5f52',
             }}>
-              Feed depot
+              {t.map.feedDepot}
             </span>
           </div>
 
@@ -1473,7 +1493,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               fontWeight: 500,
               color: darkMode ? '#94a89a' : '#4a5f52',
             }}>
-              Delivery corridor
+              {t.map.deliveryCorridorLegend}
             </span>
           </div>
         </div>
@@ -1515,7 +1535,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             fontWeight: 600,
             color: darkMode ? '#94a89a' : '#4a5f52',
           }}>
-            Live
+            {t.common.live}
           </span>
           <span style={{
             width: '1px',
@@ -1527,7 +1547,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             fontWeight: 500,
             color: darkMode ? '#6a7a6c' : '#7a8f7e',
           }}>
-            {districts.length} zones
+            {tf(t.map.zonesCount, { n: districts.length })}
           </span>
           <span style={{
             width: '1px',
@@ -1539,7 +1559,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             fontWeight: 500,
             color: darkMode ? '#6a7a6c' : '#7a8f7e',
           }}>
-            {routes.length} routes
+            {tf(t.map.routesCount, { n: routes.length })}
           </span>
         </div>
       </div>

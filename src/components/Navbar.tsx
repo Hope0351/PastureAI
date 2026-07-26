@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { 
   Activity, CloudSun, Compass, Database, Moon, Sun, 
-  ShieldAlert, Cpu, RefreshCw, ChevronDown, Menu, X,
+  ShieldAlert, Cpu, RefreshCw, Menu, X,
   Radar, Zap
 } from 'lucide-react';
 import { SystemStatus } from '../types';
+import { useLanguage } from '../i18n';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface NavbarProps {
   activeTab: string;
@@ -28,14 +30,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   systemStatus,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navItems = [
-    { id: 'overview', label: 'Overview', icon: Compass, description: 'Command center' },
-    { id: 'satellite', label: 'Remote Sensing', icon: Activity, description: 'Satellite data' },
-    { id: 'climate', label: 'Climate', icon: CloudSun, description: 'Weather intel' },
-    { id: 'livestock', label: 'Livestock & Feed', icon: Database, description: 'Feed requirements' },
-    { id: 'logistics', label: 'Logistics', icon: ShieldAlert, description: 'Route planning' },
-    { id: 'brief', label: 'AI Brief', icon: Cpu, description: 'Executive summary' },
+    { id: 'overview', label: t.nav.overview, icon: Compass, description: t.nav.overviewDesc },
+    { id: 'satellite', label: t.nav.satellite, icon: Activity, description: t.nav.satelliteDesc },
+    { id: 'climate', label: t.nav.climate, icon: CloudSun, description: t.nav.climateDesc },
+    { id: 'livestock', label: t.nav.livestock, icon: Database, description: t.nav.livestockDesc },
+    { id: 'logistics', label: t.nav.logistics, icon: ShieldAlert, description: t.nav.logisticsDesc },
+    { id: 'brief', label: t.nav.brief, icon: Cpu, description: t.nav.briefDesc },
   ];
 
   const weatherLive = systemStatus?.services.weather.status === 'live';
@@ -56,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="button"
               onClick={onGoHome}
               className="group flex min-w-0 items-center gap-3 rounded-xl text-left transition-all duration-200 hover:bg-field-soft/50"
-              title="Back to landing"
+              title={t.nav.backHome}
             >
               <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-field to-gradient-accent shadow-lg shadow-field/20 transition-transform group-hover:scale-105">
                 <span className="font-display text-sm font-bold tracking-[0.15em] text-white">GF</span>
@@ -68,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="text-xs font-semibold text-field bg-field-soft/80 px-2 py-0.5 rounded-md">AI</span>
                 </h1>
                 <p className="hidden truncate text-xs text-muted sm:block font-medium">
-                  Forage prediction & feed logistics
+                  {t.brand.tagline}
                 </p>
               </div>
             </button>
@@ -77,38 +80,46 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="hidden items-center gap-2 lg:flex">
               <StatusPill 
                 icon={<Radar className="h-3 w-3" />} 
-                label="Satellite" 
-                live={!!satLive} 
+                label={t.status.satellite}
+                live={!!satLive}
+                liveLabel={t.common.live}
+                offLabel={t.common.modeled}
               />
               <StatusPill 
                 icon={<CloudSun className="h-3 w-3" />} 
-                label="Weather" 
-                live={!!weatherLive} 
+                label={t.status.weather}
+                live={!!weatherLive}
+                liveLabel={t.common.live}
+                offLabel={t.common.modeled}
               />
               <StatusPill 
                 icon={<Zap className="h-3 w-3" />} 
-                label="Gemini" 
-                live={!!geminiReady} 
+                label={t.status.gemini}
+                live={!!geminiReady}
+                liveLabel={t.common.live}
+                offLabel={t.common.rules}
                 amberWhenOff 
               />
             </div>
 
             {/* Actions */}
             <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+
               <button
                 onClick={onRefresh}
                 disabled={isLiveUpdating}
                 className="group relative hidden sm:inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 border border-line-subtle bg-panel hover:bg-field-soft hover:border-field disabled:opacity-60"
-                title="Refresh all data"
+                title={t.nav.refreshData}
               >
                 <RefreshCw className={`h-4 w-4 ${isLiveUpdating ? 'animate-spin text-signal' : 'text-muted group-hover:text-field'}`} />
-                <span>Refresh</span>
+                <span>{t.common.refresh}</span>
               </button>
 
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-line-subtle bg-panel transition-all duration-200 hover:bg-field-soft hover:border-field"
-                aria-label="Toggle Theme"
+                aria-label={t.nav.toggleTheme}
               >
                 {darkMode ? (
                   <Sun className="h-4.5 w-4.5 text-signal group-hover:text-field" />
@@ -121,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden flex h-10 w-10 items-center justify-center rounded-xl border border-line-subtle bg-panel"
-                aria-label="Toggle menu"
+                aria-label={t.nav.toggleMenu}
               >
                 {mobileMenuOpen ? (
                   <X className="h-5 w-5 text-ink" />
@@ -204,11 +215,15 @@ function StatusPill({
   icon,
   label,
   live,
+  liveLabel,
+  offLabel,
   amberWhenOff = false,
 }: {
   icon: React.ReactNode;
   label: string;
   live: boolean;
+  liveLabel: string;
+  offLabel: string;
   amberWhenOff?: boolean;
 }) {
   return (
@@ -225,11 +240,9 @@ function StatusPill({
       </span>
       <span className="font-medium">
         {label} · <span className={live ? 'text-ok font-bold' : amberWhenOff ? 'text-signal' : 'text-muted'}>
-          {live ? 'Live' : amberWhenOff ? 'Rules' : 'Modeled'}
+          {live ? liveLabel : offLabel}
         </span>
       </span>
     </div>
   );
 }
-
-

@@ -387,7 +387,8 @@ docker run -p 3000:3000 --env-file .env pastureai
 ## Roadmap
 
 ### v1.1 -- Q3 2026
-- [ ] Multi-language support (Amharic, Oromo, Somali)
+- [x] Multi-language support — Amharic (አማርኛ) UI with EN/አማ toggle; Oromo & Somali next
+- [ ] Multi-language support (Oromo, Somali)
 - [ ] Offline-first capabilities with service workers
 - [ ] Push notifications for alert thresholds
 - [ ] Export to PDF/Excel for reports
