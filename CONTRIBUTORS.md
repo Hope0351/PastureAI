@@ -1,7 +1,7 @@
-# PastureAI — Team Contributors
+# መስክAI — Team Contributors
 
 ## Project Overview
-**PastureAI** is an AI-driven Ethiopian pastoral forage prediction & feed logistics platform that uses satellite vegetation monitoring (NDVI), weather intelligence, machine learning forecasting, and capacity-aware vehicle routing to help prevent livestock loss during drought conditions.
+**መስክAI** is an AI-driven Ethiopian pastoral forage prediction & feed logistics platform that uses satellite vegetation monitoring (NDVI), weather intelligence, machine learning forecasting, and capacity-aware vehicle routing to help prevent livestock loss during drought conditions.
 
 ## Architecture & Tech Stack
 - **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS v4

@@ -18,7 +18,7 @@
 
 <div align="center">
 
-# PastureAI
+# መስክAI
 
 ### *AI-Powered Ethiopian Pastoral Forage Prediction & Livestock Management Platform*
 
@@ -36,7 +36,7 @@
 
 | Section | Description |
 |---------|-------------|
-| [About](#about-pastureai) | What is PastureAI and why it matters |
+| [About](#about-መስክai) | What is መስክAI and why it matters |
 | [Features](#features) | Complete feature breakdown with screenshots |
 | [Tech Stack](#tech-stack) | Technologies powering the platform |
 | [Architecture](#system-architecture) | How components work together |
@@ -47,9 +47,9 @@
 
 ---
 
-## About PastureAI
+## About መስክAI
 
-**PastureAI** is an enterprise-grade, AI-powered platform designed specifically for **Ethiopian pastoral communities** facing climate-induced forage scarcity. By leveraging **Sentinel-2 satellite imagery**, **Google Earth Engine**, **machine learning models**, and **optimization algorithms**, PastureAI delivers real-time forage predictions, livestock management insights, and intelligent feed dispatch routing.
+**መስክAI** is an enterprise-grade, AI-powered platform designed specifically for **Ethiopian pastoral communities** facing climate-induced forage scarcity. By leveraging **Sentinel-2 satellite imagery**, **Google Earth Engine**, **machine learning models**, and **optimization algorithms**, መስክAI delivers real-time forage predictions, livestock management insights, and intelligent feed dispatch routing.
 
 ### The Problem We Solve
 
@@ -62,7 +62,7 @@ Ethiopia's pastoral regions support **millions of livestock** and livelihoods, y
 
 ### Our Solution
 
-PastureAI provides a **unified command center** with:
+መስክAI provides a **unified command center** with:
 
 | Capability | Impact |
 |------------|--------|
@@ -80,7 +80,7 @@ PastureAI provides a **unified command center** with:
 
 ![Landing Page Hero](screenshots/01-landing-hero.png)
 
-Full-screen cinematic hero with parallax effects, gradient text logo ("GeoForage"), and compelling call-to-action buttons. Shows live monitoring status and coverage statistics.
+Full-screen cinematic hero with parallax effects, gradient text logo ("መስክ"), and compelling call-to-action buttons. Shows live monitoring status and coverage statistics.
 
 ---
 
@@ -307,8 +307,8 @@ Herd pressure and emergency feed need assessment:
 
 ```bash
 # Clone the repository
-git clone https://github.com/Hope0351/PastureAI.git
-cd PastureAI
+git clone https://github.com/Hope0351/mesek-AI.git
+cd mesek-AI
 
 # Install dependencies
 npm install
@@ -439,7 +439,7 @@ This project is licensed under the MIT License -- see the [LICENSE](LICENSE) fil
 
 | Platform | Link |
 |----------|------|
-| **GitHub** | [Hope0351/PastureAI](https://github.com/Hope0351/PastureAI) |
+| **GitHub** | [Hope0351/mesek-AI](https://github.com/Hope0351/mesek-AI) |
 | **Email** | Contact team via contributor emails above |
 | **Location** | Addis Ababa, Ethiopia |
 

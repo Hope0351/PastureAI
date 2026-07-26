@@ -365,13 +365,13 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[GeoForage AI] Server listening on http://0.0.0.0:${PORT}`);
+    console.log(`[መስክAI] Server listening on http://0.0.0.0:${PORT}`);
     // Prefetch Sentinel-2 map id so the first map click is fast
     if (process.env.GEE_SERVICE_ACCOUNT_JSON) {
       geeService
         .getSentinel2MapTiles('rgb')
-        .then(() => console.log('[GeoForage AI] Sentinel-2 map tiles warmed'))
-        .catch((err) => console.warn('[GeoForage AI] Sentinel-2 warmup skipped:', err?.message || err));
+        .then(() => console.log('[መስክAI] Sentinel-2 map tiles warmed'))
+        .catch((err) => console.warn('[መስክAI] Sentinel-2 warmup skipped:', err?.message || err));
     }
   });
 }
