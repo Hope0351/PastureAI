@@ -3,6 +3,7 @@ import { WeatherChart } from '../components/WeatherChart';
 import { WeatherData } from '../types';
 import { Thermometer, Wind, Droplets, AlertTriangle, CloudSun, CloudRain, Sun, Cloud } from 'lucide-react';
 import axios from 'axios';
+import { useLanguage } from '../i18n';
 
 interface ClimatePageProps {
   darkMode?: boolean;
@@ -17,6 +18,7 @@ const getWeatherIcon = (condition: string) => {
 };
 
 export const ClimatePage: React.FC<ClimatePageProps> = ({ darkMode = false }) => {
+  const { t, tf } = useLanguage();
   const [weatherList, setWeatherList] = useState<WeatherData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,10 +45,10 @@ export const ClimatePage: React.FC<ClimatePageProps> = ({ darkMode = false }) =>
       {/* Page header */}
       <div className="gf-page-header">
         <div>
-          <span className="gf-kicker">Climate Intelligence</span>
-          <h2 className="gf-title mt-2">Meteorology for rangelands</h2>
+          <span className="gf-kicker">{t.climate.kicker}</span>
+          <h2 className="gf-title mt-2">{t.climate.title}</h2>
           <p className="gf-subtitle mt-3">
-            Real-time rainfall, temperature, humidity, and drought severity indices powered by Open-Meteo global coverage.
+            {t.climate.subtitle}
           </p>
         </div>
 
@@ -66,9 +68,13 @@ export const ClimatePage: React.FC<ClimatePageProps> = ({ darkMode = false }) =>
           </span>
           <div>
             <p className={`text-sm font-bold ${allLive ? 'text-ok' : 'text-signal'}`}>
-              {isLoading ? 'Connecting…' : allLive ? 'All Systems Live' : `${liveCount}/${weatherList.length} Live`}
+              {isLoading
+                ? t.common.connecting
+                : allLive
+                  ? t.climate.allSystemsLive
+                  : tf(t.climate.liveCount, { live: liveCount, total: weatherList.length })}
             </p>
-            <p className="text-[11px] text-muted">Open-Meteo API</p>
+            <p className="text-[11px] text-muted">{t.status.openMeteo}</p>
           </div>
         </div>
       </div>
@@ -100,7 +106,7 @@ export const ClimatePage: React.FC<ClimatePageProps> = ({ darkMode = false }) =>
                 
                 <div className="flex items-center gap-2">
                   <span className={`${w.dataSource === 'live' ? 'bg-ok-soft text-ok' : 'bg-signal-soft text-signal'} rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide`}>
-                    {w.dataSource === 'live' ? '● Live' : '○ Fallback'}
+                    {w.dataSource === 'live' ? `● ${t.common.live}` : `○ ${t.common.fallback}`}
                   </span>
                   <div className="rounded-xl bg-sky-soft p-2.5 text-sky">
                     {getWeatherIcon(w.weatherCondition)}
@@ -120,27 +126,27 @@ export const ClimatePage: React.FC<ClimatePageProps> = ({ darkMode = false }) =>
               <div className="grid grid-cols-2 gap-3">
                 <ClimateMetric
                   icon={<Droplets className="h-4 w-4 text-sky" />}
-                  label="7-Day Rainfall"
+                  label={t.climate.rainfall7Day}
                   value={`${w.rainfall7DaySum}`}
                   unit="mm"
                   tone="sky"
                 />
                 <ClimateMetric
                   icon={<Thermometer className="h-4 w-4 text-signal" />}
-                  label="Temperature"
+                  label={t.climate.temperature}
                   value={`${w.currentTemp}°C`}
-                  hint={`Max: ${w.maxTemp}°C`}
+                  hint={tf(t.climate.maxTemp, { temp: w.maxTemp })}
                   tone="signal"
                 />
                 <ClimateMetric
                   icon={<Wind className="h-4 w-4 text-muted" />}
-                  label="Humidity"
+                  label={t.climate.humidity}
                   value={`${w.relativeHumidity}`}
                   unit="%"
                 />
                 <ClimateMetric
                   icon={<AlertTriangle className="h-4 w-4 text-critical" />}
-                  label="Drought Index"
+                  label={t.climate.droughtIndex}
                   value={`${w.droughtSeverityIndex}`}
                   unit="/100"
                   tone="critical"

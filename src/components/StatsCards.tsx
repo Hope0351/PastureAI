@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertTriangle, ShieldCheck, Truck, Users, Activity, DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
 import { DashboardSummary } from '../types';
+import { useLanguage } from '../i18n';
 
 interface StatsCardsProps {
   summary: DashboardSummary | null;
@@ -8,6 +9,8 @@ interface StatsCardsProps {
 }
 
 export const StatsCards: React.FC<StatsCardsProps> = ({ summary, isLoading }) => {
+  const { t, tf } = useLanguage();
+
   if (isLoading || !summary) {
     return (
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 stagger-children">
@@ -20,59 +23,62 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ summary, isLoading }) =>
 
   const cards = [
     {
-      title: 'Zones',
+      title: t.stats.zones,
       value: summary.monitoredDistrictsCount,
-      unit: 'monitored',
+      unit: t.stats.monitored,
       icon: Activity,
       tone: 'sky',
-      subtext: `${summary.healthyDistrictsCount} healthy · ${summary.warningDistrictsCount} warning`,
+      subtext: tf(t.stats.healthyWarning, {
+        healthy: summary.healthyDistrictsCount,
+        warning: summary.warningDistrictsCount,
+      }),
       trend: 'neutral' as const,
     },
     {
-      title: 'Critical',
+      title: t.stats.critical,
       value: summary.highRiskDistrictsCount,
-      unit: 'high risk',
+      unit: t.stats.highRisk,
       icon: AlertTriangle,
       tone: summary.highRiskDistrictsCount > 0 ? 'critical' : 'ok',
       subtext: summary.droughtAlertLevel,
       trend: summary.highRiskDistrictsCount > 0 ? 'down' as const : 'up' as const,
     },
     {
-      title: 'Feed deficit',
+      title: t.stats.feedDeficit,
       value: summary.totalFeedDeficitTons.toLocaleString(),
-      unit: 'tons',
+      unit: t.stats.tons,
       icon: Truck,
       tone: 'signal',
-      subtext: `${summary.activeSupplyRoutesCount} active routes`,
+      subtext: tf(t.stats.activeRoutes, { count: summary.activeSupplyRoutesCount }),
       trend: 'neutral' as const,
     },
     {
-      title: 'At risk',
+      title: t.stats.atRisk,
       value: summary.totalLivestockAtRisk.toLocaleString(),
-      unit: 'head',
+      unit: t.stats.head,
       icon: Users,
       tone: 'critical',
-      subtext: 'Estimated first-wave cohort',
+      subtext: t.stats.firstWave,
       trend: 'down' as const,
     },
     {
-      title: 'Mean NDVI',
+      title: t.stats.meanNdvi,
       value: summary.averageRegionalNdvi.toFixed(3),
-      unit: 'index',
+      unit: t.stats.index,
       icon: ShieldCheck,
       tone: summary.averageRegionalNdvi >= 0.4 ? 'ok' : 'signal',
-      subtext: `Updated ${summary.lastSatelliteUpdate}`,
+      subtext: tf(t.stats.updated, { when: summary.lastSatelliteUpdate }),
       trend: summary.averageRegionalNdvi >= 0.4 ? 'up' : 'down' as const,
     },
     {
-      title: 'Loss at risk',
+      title: t.stats.lossAtRisk,
       value: summary.estimatedEconomicLossUSD
         ? `$${(summary.estimatedEconomicLossUSD / 1_000_000).toFixed(2)}M`
         : '—',
       unit: 'USD',
       icon: DollarSign,
       tone: 'signal',
-      subtext: 'Without intervention',
+      subtext: t.stats.withoutIntervention,
       trend: 'down' as const,
     },
   ];

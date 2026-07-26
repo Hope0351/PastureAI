@@ -1,6 +1,8 @@
 import { ETHIOPIAN_DISTRICTS_CONFIG, DistrictRawConfig } from '../config/districtsData';
 import { DataSource, NdviRecord } from '../../src/types';
 import * as crypto from 'crypto';
+import * as fs from 'fs';
+import * as path from 'path';
 import { createRequire } from 'module';
 import { appCache } from './cache';
 import { WeatherService } from './weatherService';
@@ -8,6 +10,32 @@ import { WeatherService } from './weatherService';
 const require = createRequire(import.meta.url);
 // Official Earth Engine Node client (serializes algorithms correctly for live compute)
 const ee = require('@google/earthengine') as any;
+
+/**
+ * Load GEE service-account JSON from GEE_SERVICE_ACCOUNT_FILE (preferred) or
+ * GEE_SERVICE_ACCOUNT_JSON. File path avoids dotenv escaping issues with PEM newlines.
+ */
+export function loadGeeServiceAccountRaw(): string {
+  const filePath = process.env.GEE_SERVICE_ACCOUNT_FILE?.trim();
+  if (filePath) {
+    const resolved = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
+    try {
+      return fs.readFileSync(resolved, 'utf8');
+    } catch (err) {
+      console.warn('[GEE] Failed to read GEE_SERVICE_ACCOUNT_FILE:', resolved, err);
+    }
+  }
+  return process.env.GEE_SERVICE_ACCOUNT_JSON || '';
+}
+
+export function hasGeeCredentials(): boolean {
+  const filePath = process.env.GEE_SERVICE_ACCOUNT_FILE?.trim();
+  if (filePath) {
+    const resolved = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
+    if (fs.existsSync(resolved)) return true;
+  }
+  return Boolean(process.env.GEE_SERVICE_ACCOUNT_JSON?.trim());
+}
 
 /**
  * Safely parses service account JSON string, handling escaped quotes, code blocks, or malformed strings.
@@ -167,7 +195,7 @@ export class GeeSatelliteService {
     let sensor = 'COPERNICUS/S2_SR_HARMONIZED (Calibrated Phenology Model)';
 
     // Try live Earth Engine compute
-    if (process.env.GEE_SERVICE_ACCOUNT_JSON) {
+    if (hasGeeCredentials()) {
       const live = await this.tryLiveGeeNdvi(rawConfig);
       if (live) {
         currentNdvi = live.ndvi;
@@ -193,7 +221,7 @@ export class GeeSatelliteService {
       currentNdvi = await this.assimilateWithWeather(rawConfig);
       this.lastStatus = {
         mode: 'modeled',
-        detail: 'No GEE_SERVICE_ACCOUNT_JSON — weather-assimilated Sentinel-2 phenology model',
+        detail: 'No GEE credentials — weather-assimilated Sentinel-2 phenology model',
       };
     }
 
@@ -305,8 +333,8 @@ export class GeeSatelliteService {
   }
 
   private async buildSentinel2Upstream(mode: 'rgb' | 'ndvi'): Promise<string> {
-    if (!process.env.GEE_SERVICE_ACCOUNT_JSON) {
-      throw new Error('GEE_SERVICE_ACCOUNT_JSON required for Sentinel-2 map tiles');
+    if (!hasGeeCredentials()) {
+      throw new Error('GEE_SERVICE_ACCOUNT_FILE or GEE_SERVICE_ACCOUNT_JSON required for Sentinel-2 map tiles');
     }
 
     await this.ensureEarthEngine();
@@ -379,9 +407,9 @@ export class GeeSatelliteService {
     if (this.eeReady) return this.eeReady;
 
     this.eeReady = new Promise((resolve, reject) => {
-      const sa = safeParseServiceAccount(process.env.GEE_SERVICE_ACCOUNT_JSON || '');
+      const sa = safeParseServiceAccount(loadGeeServiceAccountRaw());
       if (!sa?.client_email || !sa?.private_key) {
-        reject(new Error('Invalid GEE_SERVICE_ACCOUNT_JSON'));
+        reject(new Error('Invalid GEE service account (check GEE_SERVICE_ACCOUNT_FILE or GEE_SERVICE_ACCOUNT_JSON)'));
         return;
       }
 

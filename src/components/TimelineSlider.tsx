@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../i18n';
 
 interface TimelineSliderProps {
   timelineDays: number;
@@ -6,29 +7,31 @@ interface TimelineSliderProps {
 }
 
 export const TimelineSlider: React.FC<TimelineSliderProps> = ({ timelineDays, setTimelineDays }) => {
+  const { t, tf } = useLanguage();
+
   const steps = [
-    { days: 0, label: 'Today', subtitle: 'Baseline', icon: '○' },
-    { days: 15, label: '+15d', subtitle: 'Near term', icon: '◔' },
-    { days: 30, label: '+30d', subtitle: 'Decision window', icon: '◑' },
-    { days: 45, label: '+45d', subtitle: 'Extended', icon: '◕' },
-    { days: 60, label: '+60d', subtitle: 'Seasonal', icon: '●' },
+    { days: 0, label: t.timeline.today, subtitle: t.timeline.baseline, icon: '○' },
+    { days: 15, label: '+15d', subtitle: t.timeline.nearTerm, icon: '◔' },
+    { days: 30, label: '+30d', subtitle: t.timeline.decisionWindow, icon: '◑' },
+    { days: 45, label: '+45d', subtitle: t.timeline.extended, icon: '◕' },
+    { days: 60, label: '+60d', subtitle: t.timeline.seasonal, icon: '●' },
   ];
 
   return (
     <div className="gf-panel p-5 sm:p-6">
       <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <span className="gf-kicker">Forecast Horizon</span>
+          <span className="gf-kicker">{t.timeline.kicker}</span>
           <h2 className="font-display text-lg font-bold tracking-tight text-ink mt-1.5">
-            Projection timeline
+            {t.timeline.title}
           </h2>
         </div>
         <div className="flex items-center gap-3 text-sm">
-          <span className="text-muted">Active:</span>
+          <span className="text-muted">{t.common.active}:</span>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-field-soft px-3 py-1 font-bold text-field tabular-nums">
-            {timelineDays === 0 ? 'Today' : `+${timelineDays} days`}
+            {timelineDays === 0 ? t.timeline.today : tf(t.timeline.plusDays, { days: timelineDays })}
           </span>
-          <span className="text-xs text-soft hidden sm:inline">MA · Holt · Quadratic ensemble</span>
+          <span className="text-xs text-soft hidden sm:inline">{t.timeline.ensembleNote}</span>
         </div>
       </div>
 

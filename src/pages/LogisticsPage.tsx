@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FeedDepot, OptimizedRoute } from '../types';
 import { Truck, MapPin, Fuel, Clock, Route as RouteIcon, Package, CheckCircle2, XCircle } from 'lucide-react';
 import axios from 'axios';
+import { useLanguage } from '../i18n';
 
 interface LogisticsPageProps {
   depots: FeedDepot[];
@@ -10,6 +11,7 @@ interface LogisticsPageProps {
 }
 
 export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDays }) => {
+  const { t, tf } = useLanguage();
   const [routes, setRoutes] = useState<OptimizedRoute[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,10 +39,10 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
       {/* Page header */}
       <div className="gf-page-header">
         <div>
-          <span className="gf-kicker">Route Logistics</span>
-          <h2 className="gf-title mt-2">Capacity-aware feed dispatch</h2>
+          <span className="gf-kicker">{t.logistics.kicker}</span>
+          <h2 className="gf-title mt-2">{t.logistics.title}</h2>
           <p className="gf-subtitle mt-3">
-            Clarke-Wright Savings CVRP algorithm with truck capacity constraints, depot stock checks, and multi-stop route optimization.
+            {t.logistics.subtitle}
           </p>
         </div>
 
@@ -52,9 +54,11 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
           <Truck className={`h-5 w-5 ${feasibleCount === routes.length ? 'text-ok' : 'text-signal'}`} />
           <div>
             <p className={`text-sm font-bold ${feasibleCount === routes.length ? 'text-ok' : 'text-signal'}`}>
-              {isLoading ? 'Optimizing…' : `${feasibleCount}/${routes.length} Feasible`}
+              {isLoading
+                ? t.common.optimizing
+                : tf(t.logistics.feasibleCount, { feasible: feasibleCount, total: routes.length })}
             </p>
-            <p className="text-[11px] text-muted">Routes validated</p>
+            <p className="text-[11px] text-muted">{t.logistics.routesValidated}</p>
           </div>
         </div>
       </div>
@@ -66,7 +70,7 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
       <div>
         <h3 className="font-display text-xl font-bold tracking-tight text-ink flex items-center gap-2 mb-4">
           <MapPin className="h-5 w-5 text-sky" />
-          Feed Depots
+          {t.logistics.feedDepots}
         </h3>
         
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -87,14 +91,14 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-bold text-ink leading-snug truncate">{depot.name}</h4>
-                      <p className="text-[11px] text-muted mt-0.5">{depot.location || 'Distribution hub'}</p>
+                      <p className="text-[11px] text-muted mt-0.5">{depot.location || t.logistics.distributionHub}</p>
                     </div>
                   </div>
 
                   {/* Stock level */}
                   <div>
                     <div className="mb-2 flex justify-between text-xs">
-                      <span className="text-muted font-medium">Stock Level</span>
+                      <span className="text-muted font-medium">{t.logistics.stockLevel}</span>
                       <span className={`font-bold tabular-nums ${isLow ? 'text-critical' : 'text-field'}`}>
                         {depot.availableStockTons.toLocaleString()} / {depot.capacityTons.toLocaleString()} t
                       </span>
@@ -109,7 +113,7 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
 
                   {/* Fleet info */}
                   <div className="pt-2 border-t border-line-subtle">
-                    <p className="text-[11px] text-muted mb-1.5 uppercase tracking-wider font-semibold">Available Fleet</p>
+                    <p className="text-[11px] text-muted mb-1.5 uppercase tracking-wider font-semibold">{t.logistics.availableFleet}</p>
                     <div className="flex gap-2">
                       <span className="inline-flex items-center gap-1 rounded-md bg-canvas px-2 py-1 text-[11px] font-medium text-ink">
                         <Truck className="h-3 w-3 text-sky" />
@@ -132,27 +136,27 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <SummaryStat 
           icon={<RouteIcon className="h-6 w-6" />} 
-          label="Active Corridors" 
+          label={t.logistics.activeCorridors} 
           value={String(routes.length)} 
-          unit="routes" 
+          unit={t.common.routes} 
           tone="sky"
-          description="Optimized delivery paths"
+          description={t.logistics.optimizedPaths}
         />
         <SummaryStat 
           icon={<Clock className="h-6 w-6" />} 
-          label="Network Distance" 
+          label={t.logistics.networkDistance} 
           value={totalDistance.toLocaleString()} 
           unit="km" 
           tone="signal"
-          description="Total route distance"
+          description={t.logistics.totalRouteDistance}
         />
         <SummaryStat 
           icon={<Fuel className="h-6 w-6" />} 
-          label="Estimated Fuel" 
+          label={t.logistics.estimatedFuel} 
           value={totalFuel.toLocaleString()} 
-          unit="liters" 
+          unit={t.common.liters} 
           tone="field"
-          description="Total fuel consumption"
+          description={t.logistics.totalFuel}
         />
       </div>
 
@@ -161,24 +165,24 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
         <div className="p-5 pb-4 border-b border-line-subtle flex items-center justify-between">
           <h3 className="font-display text-lg font-bold tracking-tight text-ink flex items-center gap-2">
             <Truck className="h-5 w-5 text-sky" />
-            Dispatch Schedule
+            {t.logistics.dispatchSchedule}
           </h3>
-          <span className="text-xs text-muted">{routes.length} routes planned</span>
+          <span className="text-xs text-muted">{tf(t.logistics.routesPlanned, { count: routes.length })}</span>
         </div>
         
         <div className="overflow-x-auto">
           <table className="gf-table">
             <thead>
               <tr>
-                <th>Depot</th>
-                <th>Target Zone</th>
-                <th>Feed Load</th>
-                <th>Vehicle</th>
-                <th>Stops</th>
-                <th>Distance</th>
-                <th>Duration</th>
-                <th>Fuel</th>
-                <th>Status</th>
+                <th>{t.logistics.depot}</th>
+                <th>{t.logistics.targetZone}</th>
+                <th>{t.logistics.feedLoad}</th>
+                <th>{t.logistics.vehicle}</th>
+                <th>{t.logistics.stops}</th>
+                <th>{t.logistics.distance}</th>
+                <th>{t.logistics.duration}</th>
+                <th>{t.logistics.fuel}</th>
+                <th>{t.logistics.status}</th>
               </tr>
             </thead>
             <tbody>
@@ -203,12 +207,12 @@ export const LogisticsPage: React.FC<LogisticsPageProps> = ({ depots, timelineDa
                     {r.feasible !== false ? (
                       <span className="inline-flex items-center gap-1.5 gf-badge-ok">
                         <CheckCircle2 className="h-3 w-3" />
-                        Feasible
+                        {t.logistics.feasible}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 gf-badge-critical">
                         <XCircle className="h-3 w-3" />
-                        Short {r.stockShortfallTons || 0}t
+                        {tf(t.logistics.shortTons, { n: r.stockShortfallTons || 0 })}
                       </span>
                     )}
                   </td>

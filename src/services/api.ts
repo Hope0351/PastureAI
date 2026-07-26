@@ -37,7 +37,8 @@ export const api = {
   getDistrictProfile: async (
     districtId: string,
     timelineDays: number = 30,
-    includeAi: boolean = true
+    includeAi: boolean = true,
+    lang: 'en' | 'am' = 'en'
   ): Promise<{
     district: DistrictData;
     satellite: any;
@@ -47,7 +48,7 @@ export const api = {
     aiRecommendation: AiRecommendation | null;
   }> => {
     const res = await axios.get(`${API_BASE}/district/${districtId}`, {
-      params: { timeline: timelineDays, ai: includeAi ? '1' : '0' },
+      params: { timeline: timelineDays, ai: includeAi ? '1' : '0', lang },
     });
     return res.data;
   },
@@ -91,9 +92,13 @@ export const api = {
     return res.data;
   },
 
-  getAiAnalysis: async (districtId: string, timelineDays: number = 30): Promise<AiRecommendation> => {
+  getAiAnalysis: async (
+    districtId: string,
+    timelineDays: number = 30,
+    lang: 'en' | 'am' = 'en'
+  ): Promise<AiRecommendation> => {
     const res = await axios.get(`${API_BASE}/analysis`, {
-      params: { district: districtId, timeline: timelineDays },
+      params: { district: districtId, timeline: timelineDays, lang },
     });
     return res.data;
   },

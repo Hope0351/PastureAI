@@ -12,7 +12,8 @@ import {
   FeedRequirement,
   OptimizedRoute,
 } from '../types';
-import { ChevronRight, AlertTriangle, TrendingDown, MapPin, ArrowUpRight } from 'lucide-react';
+import { ChevronRight, AlertTriangle, TrendingDown, MapPin } from 'lucide-react';
+import { useLanguage } from '../i18n';
 
 interface OverviewPageProps {
   summary: DashboardSummary | null;
@@ -47,6 +48,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   isLoading,
   darkMode = false,
 }) => {
+  const { t, tf } = useLanguage();
   const lossM = ((summary?.estimatedEconomicLossUSD || 0) / 1_000_000).toFixed(1);
 
   return (
@@ -54,10 +56,10 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       {/* Page Header with KPI highlight */}
       <div className="gf-page-header">
         <div className="max-w-2xl">
-          <span className="gf-kicker">Command Overview</span>
-          <h2 className="gf-title mt-2">Predict forage collapse.<br />Move feed in time.</h2>
+          <span className="gf-kicker">{t.overview.kicker}</span>
+          <h2 className="gf-title mt-2">{t.overview.title}<br />{t.overview.titleLine2}</h2>
           <p className="gf-subtitle mt-3">
-            Satellite vegetation intelligence, live weather data, statistical forecasting, and capacity-aware routing — unified in one command view.
+            {t.overview.subtitle}
           </p>
         </div>
 
@@ -68,11 +70,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div className="absolute right-4 bottom-4 h-20 w-20 rounded-full bg-white/5" />
           
           <div className="relative">
-            <p className="text-xs font-semibold text-white/70 uppercase tracking-wider">Avoidable loss</p>
+            <p className="text-xs font-semibold text-white/70 uppercase tracking-wider">{t.overview.avoidableLoss}</p>
             <p className="mt-2 font-display text-4xl font-bold text-white tabular-nums">${lossM}M</p>
             <p className="mt-1.5 flex items-center gap-1.5 text-sm text-white/80">
               <TrendingDown className="h-4 w-4" />
-              USD at risk · {timelineDays}d horizon
+              {tf(t.overview.usdAtRisk, { days: timelineDays })}
             </p>
           </div>
         </div>
@@ -90,15 +92,15 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         <div className="space-y-4 lg:col-span-8">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <span className="gf-kicker">Situational Awareness</span>
+              <span className="gf-kicker">{t.overview.situational}</span>
               <h3 className="font-display text-xl font-bold tracking-tight text-ink mt-1.5">
-                Pasture health & feed corridors
+                {t.overview.mapTitle}
               </h3>
-              <p className="text-sm text-muted mt-1">Real-time vegetation index across monitored zones</p>
+              <p className="text-sm text-muted mt-1">{t.overview.mapSubtitle}</p>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-xs text-muted bg-field-soft px-3 py-2 rounded-xl">
               <MapPin className="h-3.5 w-3.5 text-field" />
-              Select a zone to inspect details
+              {t.overview.selectZone}
             </div>
           </div>
 
@@ -120,13 +122,13 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             <div className="p-5 border-b border-line-subtle">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="gf-kicker !text-[11px]">Priority Zones</p>
+                  <p className="gf-kicker !text-[11px]">{t.overview.priorityZones}</p>
                   <h3 className="font-display text-lg font-bold tracking-tight text-ink mt-0.5">
-                    Rangeland status
+                    {t.overview.rangelandStatus}
                   </h3>
                 </div>
                 <span className="inline-flex items-center justify-center h-7 min-w-[2.25rem] rounded-full bg-field-soft px-2.5 text-xs font-bold text-field tabular-nums">
-                  {districts.length} zones
+                  {districts.length} {t.common.zones}
                 </span>
               </div>
             </div>

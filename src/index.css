@@ -3,15 +3,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================================
-   መስክAI — Premium Design System
+   Mesk — Premium Design System
    Vibe: Precision Agriculture × Modern SaaS
    Earthy, cinematic, data-rich, executive-ready
    ============================================ */
 
 @theme {
   /* Typography — Premium pairing */
-  --font-sans: "Inter", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", "IBM Plex Sans", "Noto Sans Ethiopic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", "Syne", "Noto Sans Ethiopic", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
   /* Primary Palette — Deep Forest & Earth */
@@ -56,6 +56,12 @@
 /* ============================================
    ROOT & DARK MODE
    ============================================ */
+
+html[lang="am"] body,
+html[data-locale="am"] body {
+  font-feature-settings: "kern" 1;
+  letter-spacing: 0.01em;
+}
 
 :root {
   /* Shadow system — layered depth */

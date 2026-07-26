@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { WeatherData } from '../types';
+import { useLanguage } from '../i18n';
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +31,7 @@ interface WeatherChartProps {
 }
 
 export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], darkMode = true }) => {
+  const { t } = useLanguage();
   const labels = weatherList.map((w) => w.districtName);
   const rainfall7Day = weatherList.map((w) => w.rainfall7DaySum);
   const maxTemps = weatherList.map((w) => w.maxTemp);
@@ -46,7 +48,7 @@ export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], da
     datasets: [
       {
         type: 'bar' as const,
-        label: '7-Day Cumulative Rainfall (mm)',
+        label: t.charts.rainfallSeries,
         data: rainfall7Day,
         backgroundColor: darkMode ? 'rgba(56, 189, 248, 0.7)' : 'rgba(2, 132, 199, 0.7)',
         borderColor: '#0284C7',
@@ -55,7 +57,7 @@ export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], da
       },
       {
         type: 'line' as const,
-        label: 'Max Temperature (°C)',
+        label: t.charts.maxTempSeries,
         data: maxTemps,
         borderColor: '#F97316',
         backgroundColor: '#F97316',
@@ -65,7 +67,7 @@ export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], da
       },
       {
         type: 'line' as const,
-        label: 'Drought Severity Index (0-100)',
+        label: t.charts.droughtSeries,
         data: droughtIndex,
         borderColor: '#EF4444',
         borderDash: [4, 4],
@@ -90,7 +92,7 @@ export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], da
       },
       title: {
         display: true,
-        text: 'Open-Meteo Meteorological Correlation across Ethiopian Rangelands',
+        text: t.charts.weatherTitle,
         color: textColor,
         font: { size: 13, weight: 'bold' as const },
       },
@@ -113,7 +115,7 @@ export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], da
         grid: { color: gridColor },
         title: {
           display: true,
-          text: 'Rainfall (mm)',
+          text: t.charts.rainfallAxis,
           color: darkMode ? '#38BDF8' : '#0284C7',
           font: { size: 11 },
         },
@@ -127,7 +129,7 @@ export const WeatherChart: React.FC<WeatherChartProps> = ({ weatherList = [], da
         grid: { drawOnChartArea: false },
         title: {
           display: true,
-          text: 'Temperature (°C) / Drought Index',
+          text: t.charts.tempDroughtAxis,
           color: '#F97316',
           font: { size: 11 },
         },

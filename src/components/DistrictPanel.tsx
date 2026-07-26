@@ -19,6 +19,8 @@ import {
   FeedRequirement,
   OptimizedRoute,
 } from '../types';
+import { useLanguage } from '../i18n';
+import { riskLabel } from '../i18n/localize';
 import { InterventionImpactPanel } from './InterventionImpactPanel';
 
 interface DistrictPanelProps {
@@ -40,9 +42,12 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
   onClose,
   timelineDays,
 }) => {
+  const { t, tf } = useLanguage();
+
   if (!district) return null;
 
   const currentForecastPoint = forecast?.forecasts[timelineDays] || forecast?.forecasts[30];
+  const trendLabel = riskLabel(t, forecast?.trend || 'Stable');
 
   return (
     <div className="gf-panel-elevated overflow-hidden animate-fade-up">
@@ -56,7 +61,7 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2 text-muted">
                 <MapPin className="h-4 w-4 text-field" />
-                <span className="text-xs font-medium">Zone Profile</span>
+                <span className="text-xs font-medium">{t.district.zoneProfile}</span>
               </div>
             </div>
             
@@ -69,7 +74,7 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
                     ? 'inline-flex items-center gap-1.5 rounded-full bg-signal-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-signal'
                     : 'inline-flex items-center gap-1.5 rounded-full bg-ok-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-ok'
               }>
-                {district.riskLevel} · {district.riskScore}/100
+                {riskLabel(t, district.riskLevel)} · {district.riskScore}/100
               </span>
             </h2>
 
@@ -82,15 +87,15 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
             <button 
               onClick={() => window.print()} 
               className="gf-btn !rounded-xl"
-              title="Export Briefing Report"
+              title={t.district.exportTitle}
             >
               <FileText className="h-4 w-4 text-field" />
-              <span className="hidden sm:inline">Export</span>
+              <span className="hidden sm:inline">{t.common.export}</span>
             </button>
             <button 
               onClick={onClose} 
               className="gf-btn !rounded-xl" 
-              aria-label="Close panel"
+              aria-label={t.district.closePanel}
             >
               <X className="h-4 w-4" />
             </button>
@@ -100,29 +105,29 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
         {/* Key metrics grid */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <MetricCard
-            label="Sentinel-2 NDVI"
+            label={t.stats.meanNdvi}
             value={district.currentNdvi.toFixed(3)}
-            hint="MSI 10m resolution"
+            hint={t.district.msiHint}
             icon={<Calendar className="h-5 w-5" />}
             tone="field"
           />
           <MetricCard
-            label={`Forecast (+${timelineDays}d)`}
-            value={currentForecastPoint?.forecastNdvi.toFixed(3) || 'N/A'}
-            hint={`Trend: ${forecast?.trend || 'Stable'}`}
+            label={tf(t.district.forecastLabel, { days: timelineDays })}
+            value={currentForecastPoint?.forecastNdvi.toFixed(3) || t.common.na}
+            hint={tf(t.district.trend, { trend: trendLabel })}
             icon={<AlertCircle className="h-5 w-5" />}
             tone="signal"
           />
           <MetricCard
-            label="7-Day Rainfall"
+            label={t.district.rainfall7Day}
             value={`${district.weather.rainfall7DaySum}`}
             unit="mm"
-            hint={`Temp: ${district.weather.currentTemp}°C`}
+            hint={tf(t.district.tempHint, { temp: district.weather.currentTemp })}
             icon={<CloudRain className="h-5 w-5" />}
             tone="sky"
           />
           <MetricCard
-            label="Livestock TLU"
+            label={t.district.livestockTlu}
             value={district.livestock.totalTLU.toLocaleString()}
             hint={`${district.livestock.densityTLUPerKm2} TLU/km²`}
             icon={<Users className="h-5 w-5" />}
@@ -142,32 +147,32 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
                   <div className="rounded-xl bg-field-soft p-2.5 text-field">
                     <Cpu className="h-5 w-5" />
                   </div>
-                  <h3 className="font-display text-lg font-bold text-ink">AI Decision Brief</h3>
+                  <h3 className="font-display text-lg font-bold text-ink">{t.district.aiDecisionBrief}</h3>
                 </div>
                 <span className={
                   aiBrief.priority === 'Critical' 
                     ? 'gf-badge-critical' 
                     : 'gf-badge-warn'
                 }>
-                  {aiBrief.priority} Priority
+                  {riskLabel(t, aiBrief.priority)}
                 </span>
               </div>
 
               <div className="rounded-xl border border-line-subtle bg-panel p-5 mb-4">
-                <p className="text-sm font-semibold text-field mb-2 uppercase tracking-wider text-xs">Executive Summary</p>
+                <p className="text-sm font-semibold text-field mb-2 uppercase tracking-wider text-xs">{t.brief.executiveSummary}</p>
                 <p className="text-base leading-relaxed text-ink">{aiBrief.summary}</p>
               </div>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="rounded-xl border border-line-subtle bg-panel p-4">
                   <p className="text-xs font-bold text-field mb-2 uppercase tracking-wider flex items-center gap-1.5">
-                    <ArrowRightLeft className="h-3.5 w-3.5" /> Recommended Action
+                    <ArrowRightLeft className="h-3.5 w-3.5" /> {t.brief.recommendedAction}
                   </p>
                   <p className="text-sm leading-relaxed text-muted">{aiBrief.recommendedAction}</p>
                 </div>
                 <div className="rounded-xl border border-line-subtle bg-panel p-4">
                   <p className="text-xs font-bold text-sky mb-2 uppercase tracking-wider flex items-center gap-1.5">
-                    <Truck className="h-3.5 w-3.5" /> Feed Distribution
+                    <Truck className="h-3.5 w-3.5" /> {t.brief.feedDistribution}
                   </p>
                   <p className="text-sm leading-relaxed text-muted">{aiBrief.distributionStrategy}</p>
                 </div>
@@ -175,7 +180,7 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
 
               <div className="mt-4 rounded-xl border border-signal/20 bg-signal-soft/50 p-4">
                 <p className="text-xs font-bold text-signal mb-2 uppercase tracking-wider flex items-center gap-1.5">
-                  <ShieldAlert className="h-3.5 w-3.5" /> Plain Language
+                  <ShieldAlert className="h-3.5 w-3.5" /> {t.district.plainLanguage}
                 </p>
                 <p className="text-sm leading-relaxed text-ink">{aiBrief.plainLanguageExplanation}</p>
               </div>
@@ -201,16 +206,16 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
                 <div className="rounded-xl bg-critical-soft p-2.5 text-critical">
                   <ShieldAlert className="h-5 w-5" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-ink">Feed Deficit</h3>
+                <h3 className="font-display text-lg font-bold text-ink">{t.district.feedDeficit}</h3>
               </div>
               
               <div className="space-y-3">
-                <DetailRow label="Analysis Window" value={`+${timelineDays} days`} />
-                <DetailRow label="Feed Required" value={`${feedRequirement.feedNeededTons.toLocaleString()} t`} accent="signal" bold />
-                <DetailRow label="Animals at Risk" value={`${feedRequirement.animalsAtRisk.toLocaleString()} head`} accent="critical" bold />
-                <DetailRow label="Urgency Window" value={`Within ${feedRequirement.urgencyDays} days`} />
+                <DetailRow label={t.district.analysisWindow} value={tf(t.timeline.plusDays, { days: timelineDays })} />
+                <DetailRow label={t.district.feedRequired} value={`${feedRequirement.feedNeededTons.toLocaleString()} ${t.stats.tons}`} accent="signal" bold />
+                <DetailRow label={t.district.animalsAtRisk} value={`${feedRequirement.animalsAtRisk.toLocaleString()} ${t.common.head}`} accent="critical" bold />
+                <DetailRow label={t.district.urgencyWindow} value={tf(t.district.withinDays, { days: feedRequirement.urgencyDays })} />
                 <DetailRow
-                  label="Economic Loss at Risk"
+                  label={t.district.economicLoss}
                   value={`$${feedRequirement.estimatedEconomicLossUSD.toLocaleString()} USD`}
                   accent="signal"
                   bold
@@ -225,16 +230,16 @@ export const DistrictPanel: React.FC<DistrictPanelProps> = ({
                 <div className="rounded-xl bg-sky-soft p-2.5 text-sky">
                   <Truck className="h-5 w-5" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-ink">Dispatch Logistics</h3>
+                <h3 className="font-display text-lg font-bold text-ink">{t.district.dispatchLogistics}</h3>
               </div>
               
               <div className="space-y-3">
-                <DetailRow label="Assigned Depot" value={route.depotName} accent="sky" bold />
-                <DetailRow label="Vehicle Type" value={route.assignedTruckType} />
-                <DetailRow label="Route Distance" value={`${route.distanceKm} km`} />
-                <DetailRow label="Estimated Travel Time" value={`${route.estimatedTimeHours} h`} />
+                <DetailRow label={t.district.assignedDepot} value={route.depotName} accent="sky" bold />
+                <DetailRow label={t.district.vehicleType} value={route.assignedTruckType} />
+                <DetailRow label={t.district.routeDistance} value={`${route.distanceKm} km`} />
+                <DetailRow label={t.district.travelTime} value={`${route.estimatedTimeHours} h`} />
                 <DetailRow
-                  label="Fuel Consumption (Roundtrip)"
+                  label={t.district.fuelRoundtrip}
                   value={`${route.fuelConsumptionLiters} L`}
                   accent="signal"
                   bold

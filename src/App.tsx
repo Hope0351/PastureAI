@@ -9,6 +9,7 @@ import { LivestockPage } from './pages/LivestockPage';
 import { LogisticsPage } from './pages/LogisticsPage';
 import { AiBriefPage } from './pages/AiBriefPage';
 import { api } from './services/api';
+import { useLanguage } from './i18n';
 import {
   AiRecommendation,
   DashboardSummary,
@@ -21,6 +22,7 @@ import {
 } from './types';
 
 export default function App() {
+  const { t, locale } = useLanguage();
   const [showLanding, setShowLanding] = useState(true);
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [darkMode, setDarkMode] = useState<boolean>(false);
@@ -51,7 +53,7 @@ export default function App() {
     if (showLanding) return;
     loadInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timelineDays, showLanding]);
+  }, [timelineDays, showLanding, locale]);
 
   const loadInitialData = async () => {
     setIsUpdating(true);
@@ -73,7 +75,7 @@ export default function App() {
       if (health) setSystemStatus(health);
 
       const activeDistrictId = selectedDistrict?.id || districtList[0]?.id || 'borena';
-      const districtProfile = await api.getDistrictProfile(activeDistrictId, timelineDays, true);
+      const districtProfile = await api.getDistrictProfile(activeDistrictId, timelineDays, true, locale);
 
       setSelectedDistrict(districtProfile.district);
       setForecast(districtProfile.forecast);
@@ -82,8 +84,8 @@ export default function App() {
       setAiBrief(districtProfile.aiRecommendation);
       setHasLoadedApp(true);
     } catch (err) {
-      console.error('Failed to load መስክAI dataset:', err);
-      setError('Unable to connect to መስክAI services. Check that the server is running.');
+      console.error('Failed to load Mesk dataset:', err);
+      setError(t.app.connectionError);
     } finally {
       setIsLoading(false);
       setIsUpdating(false);
@@ -107,7 +109,7 @@ export default function App() {
   const handleSelectDistrict = async (district: DistrictData) => {
     setSelectedDistrict(district);
     try {
-      const profile = await api.getDistrictProfile(district.id, timelineDays, true);
+      const profile = await api.getDistrictProfile(district.id, timelineDays, true, locale);
       setSelectedDistrict(profile.district);
       setForecast(profile.forecast);
       setFeedReq(profile.feedRequirement);
@@ -143,7 +145,7 @@ export default function App() {
               onClick={handleRefresh} 
               className="gf-btn !border-critical !text-critical hover:!bg-critical hover:!text-white"
             >
-              Retry Connection
+              {t.common.retry}
             </button>
           </div>
         )}
@@ -159,8 +161,8 @@ export default function App() {
               </div>
             </div>
             <div className="text-center space-y-2">
-              <p className="font-display text-xl font-bold tracking-tight text-ink">Loading መስክAI</p>
-              <p className="text-sm text-muted">Initializing satellite data · weather feeds · forecast models</p>
+              <p className="font-display text-xl font-bold tracking-tight text-ink">{t.app.loadingTitle}</p>
+              <p className="text-sm text-muted">{t.app.loadingSubtitle}</p>
             </div>
           </div>
         ) : (
@@ -221,10 +223,10 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="font-display text-lg font-bold text-ink">
-                መስክ<span className="text-field">AI</span>
+                Mesk
               </p>
               <p className="mt-1 text-xs text-soft">
-                Pastoral forage intelligence platform
+                {t.brand.footerTagline}
               </p>
             </div>
             
@@ -233,16 +235,16 @@ export default function App() {
               <span>·</span>
               <span className="font-medium text-sky">Open-Meteo</span>
               <span>·</span>
-              <span className="font-medium text-signal">Ensemble Forecast</span>
+              <span className="font-medium text-signal">{t.brand.ensembleForecast}</span>
               <span>·</span>
-              <span className="font-medium text-ok">CVRP Routing</span>
+              <span className="font-medium text-ok">{t.brand.cvrpRouting}</span>
               <span>·</span>
               <span className="font-medium text-critical">Gemini AI</span>
             </div>
           </div>
           
           <div className="mt-6 pt-4 border-t border-line-subtle text-center text-[11px] text-soft">
-            Built for Ethiopian pastoral systems resilience
+            {t.brand.footerBuilt}
           </div>
         </div>
       </footer>
