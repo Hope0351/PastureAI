@@ -58,13 +58,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="group flex min-w-0 items-center gap-3 rounded-xl text-left transition-all duration-200 hover:bg-field-soft/50"
               title="Back to landing"
             >
-              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-field to-gradient-accent shadow-lg shadow-field/20 transition-transform group-hover:scale-105">
-                <span className="font-display text-sm font-bold tracking-[0.15em] text-white">GF</span>
+              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-lg shadow-field/20 transition-transform group-hover:scale-105 bg-gradient-to-br from-field to-gradient-accent">
+                <img 
+                  src="/logo/logo.png" 
+                  alt="መስክAI Logo" 
+                  className="h-full w-full object-contain p-1"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <span className="font-display text-sm font-bold tracking-[0.15em] text-white hidden">መስክ</span>
                 <div className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-panel bg-ok animate-pulse" />
               </div>
               <div className="min-w-0">
                 <h1 className="font-display text-xl font-bold tracking-tight text-ink flex items-center gap-1.5">
-                  GeoForage
+                  መስክ
                   <span className="text-xs font-semibold text-field bg-field-soft/80 px-2 py-0.5 rounded-md">AI</span>
                 </h1>
                 <p className="hidden truncate text-xs text-muted sm:block font-medium">

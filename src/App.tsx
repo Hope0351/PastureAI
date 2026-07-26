@@ -82,8 +82,8 @@ export default function App() {
       setAiBrief(districtProfile.aiRecommendation);
       setHasLoadedApp(true);
     } catch (err) {
-      console.error('Failed to load GeoForage AI dataset:', err);
-      setError('Unable to connect to GeoForage services. Check that the server is running.');
+      console.error('Failed to load መስክAI dataset:', err);
+      setError('Unable to connect to መስክAI services. Check that the server is running.');
     } finally {
       setIsLoading(false);
       setIsUpdating(false);
@@ -159,7 +159,7 @@ export default function App() {
               </div>
             </div>
             <div className="text-center space-y-2">
-              <p className="font-display text-xl font-bold tracking-tight text-ink">Loading GeoForage AI</p>
+              <p className="font-display text-xl font-bold tracking-tight text-ink">Loading መስክAI</p>
               <p className="text-sm text-muted">Initializing satellite data · weather feeds · forecast models</p>
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="font-display text-lg font-bold text-ink">
-                GeoForage<span className="text-field">AI</span>
+                መስክ<span className="text-field">AI</span>
               </p>
               <p className="mt-1 text-xs text-soft">
                 Pastoral forage intelligence platform

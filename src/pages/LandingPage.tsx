@@ -335,7 +335,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnter }) => {
       <footer className="border-t border-line-subtle px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <p className="font-display text-lg font-bold text-ink">GeoForage<span className="text-field">AI</span></p>
+            <p className="font-display text-lg font-bold text-ink">መስክ<span className="text-field">AI</span></p>
             <p className="mt-1 text-xs text-soft">Pastoral forage intelligence · Photos from the field</p>
           </div>
           <div className="flex items-center gap-4 text-xs text-muted">
